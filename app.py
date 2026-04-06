@@ -1,6 +1,31 @@
 import streamlit as st
 import requests
 
+# --- رابط اللوغو المباشر الخاص بك ---
+LOGO_URL = "https://i.postimg.cc/85M6mGvP/Ayub-Logo.png"
+
+# --- إعدادات الصفحة ---
+st.set_page_config(
+    page_title="مكتبة أيوب الذكية", 
+    page_icon=LOGO_URL, 
+    layout="wide"
+)
+
+# --- كود جعل الموقع يظهر كـ "تطبيق" بأيقونة احترافية ---
+st.markdown(f"""
+    <head>
+        <link rel="apple-touch-icon" href="{LOGO_URL}">
+        <link rel="icon" type="image/png" href="{LOGO_URL}">
+        <link rel="shortcut icon" href="{LOGO_URL}">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    </head>
+""", unsafe_allow_html=True)
+
+# بقية الكود (الستايل والهيدر والدردشة) تبقى كما هي...
+import streamlit as st
+import requests
+
 # --- إعدادات الصفحة ---
 st.set_page_config(page_title="مكتبة أيوب الذكية", page_icon="🦅", layout="wide")
 
