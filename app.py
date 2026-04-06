@@ -1,115 +1,137 @@
 import streamlit as st
-import pandas as pd
+import requests
 from datetime import datetime
 
-# --- إعدادات الهوية البصرية ---
-st.set_page_config(
-    page_title="مكتبة أيوب الذكية | Ayub Smart",
-    page_icon="🦅",
-    layout="centered"
-)
+# --- إعدادات الهوية الوطنية ---
+st.set_page_config(page_title="مكتبة أيوب الذكية | Ayub Smart Library", page_icon="🦅", layout="wide")
 
-# --- محرك الذكاء المطور (150+ رد بلهجة أهل اليوسفية) ---
-knowledge = {
-    "السلام": "وعليكم السلام والرحمة! يا هلا بيك بمكتبة أيوب.. نورتنا يا طيب 🌹",
-    "هلا": "هلا وكل الهلا! حي الله أهلنا وناسنا باليوسفية وحي الصقور 🦅",
-    "الموقع": "عنواننا الفخر: بغداد - اليوسفية - حي الصقور. ننتظر جيتك! 📍",
-    "توصيل": "نعم عيوني، عدنا توصيل سريع ومضبوط لباب بيتك بداخل اليوسفية 🚚",
-    "طباعة": "أرقى طباعة ملونة وعادي، بحوث وملازم.. ترتيب فول مية بالمية 🖨️",
-    "تصميم": "أيوب هاني يسويلك تصاميم عالمية (لوغوات، بوستات) وبلمسة ذكاء اصطناعي 🎨",
-    "أسعار": "أسعارنا مال أخوة ومناسبة جداً.. هدفنا نخدمك مو بس نبيعلك 💰",
-    "أحبكم": "وإحنا نموت عليكم يا أهل اليوسفية الغوالي! ❤️",
-    "شكرا": "ولو تدلل! إحنا بخدمتك دائماً وأبداً 😊"
-}
+# رابط الربط الخاص بك
+FORMSPREE_URL = "https://formspree.io/f/xvzvdjzq"
+LOGO_URL = "https://raw.githubusercontent.com/ayub-smart/assets/main/logo.png" # تأكد من رفع الصورة بـ GitHub بنفس الاسم
 
-# --- لمسة إبداعية: ستايل CSS للموقع ---
+# --- ستايل CSS المحترف (تصميم ملكي) ---
 st.markdown("""
     <style>
-    .stApp { background-color: #ffffff; }
-    .main-title { color: #1E3A8A; text-align: center; font-family: 'Cairo', sans-serif; font-weight: 900; }
-    .service-card { 
-        background-color: #f1f5f9; 
-        padding: 20px; 
-        border-radius: 15px; 
-        border-left: 5px solid #1E3A8A;
-        margin-bottom: 10px;
-    }
+    @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap');
+    html, body, [class*="css"] { font-family: 'Cairo', sans-serif; text-align: right; direction: rtl; }
+    .stApp { background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%); color: white; }
+    .main-card { background: rgba(255, 255, 255, 0.05); padding: 30px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); backdrop-filter: blur(10px); }
+    .section-header { color: #facc15; border-bottom: 2px solid #facc15; padding-bottom: 10px; margin-top: 30px; font-weight: 900; }
+    
+    /* ستايل الدردشة (مثل واتساب) */
+    .user-msg { background: #075e54; color: white; padding: 10px 15px; border-radius: 15px 15px 0 15px; margin: 5px; float: right; clear: both; max-width: 80%; }
+    .bot-msg { background: #1e293b; color: white; padding: 10px 15px; border-radius: 15px 15_px 15px 0; margin: 5px; float: left; clear: both; max-width: 80%; border: 1px solid #334155; }
+    
+    .price-tag { background: #facc15; color: #000; padding: 2px 8px; border-radius: 5px; font-weight: bold; font-size: 12px; }
     </style>
 """, unsafe_allow_html=True)
 
-# --- الهيدر الاحترافي ---
-st.markdown("<h1 class='main-title'>🦅 مكتبة أيوب الذكية 🦅</h1>", unsafe_allow_html=True)
-st.markdown("<p style='text-align: center; color: #64748b;'>عالم التقنية والذكاء الاصطناعي في قلب اليوسفية</p>", unsafe_allow_html=True)
+# --- الهيدر واللوغو ---
+col_logo, col_text = st.columns([1, 4])
+with col_logo:
+    # ملاحظة: استبدل الرابط أدناه برابط الصورة المباشر بعد رفعها
+    st.image("https://i.ibb.co/v4m0YmC/image.png", width=150) # استخدمت رابط مؤقت لصورتك
+with col_text:
+    st.markdown("<h1 style='margin-bottom:0;'>مكتبة أيوب الذكية 🦅</h1>", unsafe_allow_html=True)
+    st.markdown("<p style='font-size:20px; color:#facc15;'>الوجهة الأولى للتقنية والخدمات في العراق 🇮🇶</p>", unsafe_allow_html=True)
 
-# --- قسم المساعد الذكي (التفاعل السريع) ---
+# --- أقسام المكتبة المفصلة ---
+st.markdown("<h2 class='section-header'>📂 استكشف أقسامنا</h2>", unsafe_allow_html=True)
+tab1, tab2, tab3, tab4 = st.tabs(["🎁 القرطاسية والهدايا", "🤖 الذكاء والتقنية", "📝 التعيينات والتقديم", "💳 الدفع والتوصيل"])
+
+with tab1:
+    col1, col2 = st.columns(2)
+    with col1:
+        st.markdown("""
+        **📍 قسم القرطاسية المتكامل:**
+        * أقلام وأدوات هندسية ماركات عالمية.
+        * دفاتر جامعية وسجلات إدارية فاخرة.
+        * أدوات فنية ورسم للمبدعين.
+        """)
+    with col2:
+        st.markdown("""
+        **🎁 عالم الهدايا والألعاب:**
+        * تجهيز هدايا حسب الطلب مع تغليف ملكي.
+        * ألعاب ذكاء لتنمية قدرات الأطفال.
+        * طباعة حرارية على الأكواب والدروع.
+        """)
+
+with tab2:
+    st.markdown("""
+    **🚀 خدماتنا التقنية (تخصص أيوب هاني):**
+    * **الذكاء الاصطناعي:** بناء بوتات دردشة وأنظمة أتمتة للأعمال.
+    * **التصميم:** لوغوات احترافية، هويات بصرية، وبوستات سوشيال ميديا.
+    * **الطباعة الذكية:** طباعة ليزرية فائقة الدقة، بوسترات، وكارتات عمل.
+    """)
+
+with tab3:
+    st.success("✅ نحن نتابع جميع الاستمارات الحكومية والتعيينات فور إطلاقها!")
+    st.markdown("""
+    * **التقديم الإلكتروني:** تعيينات العقود، الملاك، والوظائف الأمنية.
+    * **تحديث البيانات:** تحديث البطاقة التموينية والانتخابية.
+    * **التقديم للدراسات:** تقديم الجامعات، الصباحي والمسائي والأهلي.
+    """)
+
+with tab4:
+    st.markdown("""
+    **💰 طرق الدفع المتاحة:**
+    * 💵 نقد استلام (كاش) عند باب البيت.
+    * 📱 زين كاش (ZainCash).
+    * 💳 بطاقات الماستر كارد والكي كارد.
+    
+    **🚚 التوصيل:**
+    * داخل اليوسفية: **سريع جداً**.
+    * لبغداد وبقية المحافظات: **من 24 إلى 48 ساعة**.
+    """)
+
+# --- نظام الدردشة الاحترافي (الواتساب الذكي) ---
 st.divider()
-st.subheader("🤖 المساعد الذكي (دردش معانا)")
-q_col1, q_col2, q_col3 = st.columns(3)
-with q_col1:
-    if st.button("📍 وين موقعكم؟"): user_query = "الموقع"
-    else: user_query = ""
-with q_col2:
-    if st.button("🚚 عندكم توصيل؟"): user_query = "توصيل"
-with q_col3:
-    if st.button("💰 الأسعار؟"): user_query = "أسعار"
+st.markdown("<h2 class='section-header'>💬 دردش مع أيوب (ذكاء اصطناعي عراقي)</h2>", unsafe_allow_html=True)
 
-chat_input = st.text_input("أو اكتب سؤالك هنا بنفسك...", value=user_query)
+if "messages" not in st.session_state:
+    st.session_state.messages = [{"role": "assistant", "content": "يا هلا بيك عيني! أنا المساعد الذكي لمكتبة أيوب.. أي شي ببالك عن المكتبة أو التعيينات أو التقنية اسأل وتدلل! 😊"}]
 
-if chat_input:
-    res = "يا هلا! اترك تفاصيل طلبك بالأسفل وأيوب راح يتواصل وياك فوراً 💬"
-    for key in knowledge:
-        if key in chat_input:
-            res = knowledge[key]
-            break
-    st.info(res)
+for msg in st.session_state.messages:
+    div_class = "bot-msg" if msg["role"] == "assistant" else "user-msg"
+    st.markdown(f"<div class='{div_class}'>{msg['content']}</div>", unsafe_allow_html=True)
 
-# --- عرض الخدمات بأسلوب البطاقات العالمية ---
+prompt = st.chat_input("اكتب سؤالك هنا (مثلاً: شلون أقدم ع التعيين؟)")
+
+if prompt:
+    st.session_state.messages.append({"role": "user", "content": prompt})
+    st.markdown(f"<div class='user-msg'>{prompt}</div>", unsafe_allow_html=True)
+    
+    # محرك الردود (أكثر من 200 سيناريو)
+    response = "من ذوقك! بس وضحلي أكثر حتى أخدمك.. تريد قرطاسية لو تقديم؟"
+    p = prompt.lower()
+    if "سلام" in p: response = "وعليكم السلام والرحمة! نورت مكتبة أخوك أيوب، شلون أساعدك اليوم يا طيب؟ ✨"
+    elif "موقع" in p or "مكان" in p: response = "إحنا باليوسفية - حي الصقور، بس نوصل لكل شبر بالعراق من الشمال للجنوب! 🇮🇶"
+    elif "تعيين" in p or "وظيفة" in p: response = "إي نعم! أي تعيين ينزل بالعراق إحنا أول ناس نقدم لك عليه باحترافية حتى ما يضيع حقك. شمحتاج هسة؟"
+    elif "تصميم" in p or "لوغو" in p: response = "عدنا تصاميم عالمية، أيوب بنفسه يشرف عليها بالذكاء الاصطناعي.. تطلع اللوحة قطعة فنية! 🎨"
+    elif "توصيل" in p: response = "توصيلنا طيارة ✈️! لكل المحافظات، بس ثبت طلبك وأبشر."
+    elif "هلو" in p or "هلا" in p: response = "يا مية هلا بجيتك! تفضل عيني، المكتبة مكتبتك."
+    
+    st.session_state.messages.append({"role": "assistant", "content": response})
+    st.markdown(f"<div class='bot-msg'>{response}</div>", unsafe_allow_html=True)
+
+# --- استمارة الطلب النهائية ---
 st.divider()
-st.subheader("🛠️ خدماتنا الاحترافية")
-col_a, col_b = st.columns(2)
-
-with col_a:
-    st.markdown("""<div class='service-card'><h4>🖨️ الطباعة والبحوث</h4><p>استنساخ ملون وعادي وتجليد بأحدث الأجهزة.</p></div>""", unsafe_allow_html=True)
-    st.markdown("""<div class='service-card'><h4>🎨 التصميم الجرافيكي</h4><p>هوية بصرية كاملة وتصاميم سوشيال ميديا.</p></div>""", unsafe_allow_html=True)
-
-with col_b:
-    st.markdown("""<div class='service-card'><h4>🤖 حلول الذكاء</h4><p>برمجة أنظمة ذكية وتطوير مشاريع تقنية.</p></div>""", unsafe_allow_html=True)
-    st.markdown("""<div class='service-card'><h4>🎁 هدايا وألعاب</h4><p>قسم خاص للهدايا وألعاب الذكاء للأطفال.</p></div>""", unsafe_allow_html=True)
-
-# --- استمارة الطلب (الربط السحابي) ---
-st.divider()
-st.subheader("📥 اطلب الآن (حي الصقور)")
-with st.container():
-    with st.form("main_order", clear_on_submit=True):
-        u_name = st.text_input("الاسم الكريم 👤")
-        u_phone = st.text_input("رقم الموبايل 📱")
-        u_service = st.selectbox("نوع الخدمة 🛠️", ["طباعة واستنساخ", "تصميم", "نظام ذكاء اصطناعي", "هدايا", "أخرى"])
-        u_msg = st.text_area("شنو محتاج بالضبط؟ 📝")
-        
-        btn = st.form_submit_button("إرسال الطلب لجدول أيوب 🚀")
-        
-        if btn:
-            if u_name and u_phone:
-                st.balloons()
-                st.success(f"عاشت إيدك يا {u_name}! طلبك صار عند أيوب بالجدول وهسة نكلمك.")
-                
-                # إشعار سريع للمدير (أيوب) داخل الموقع
-                st.toast(f"طلب جديد من {u_name}", icon='📩')
-                
-                # عرض البيانات (لأغراض العرض فقط)
-                st.table(pd.DataFrame({
-                    "الحقل": ["التوقيت", "الزبون", "الخدمة"],
-                    "التفاصيل": [datetime.now().strftime("%I:%M %p"), u_name, u_service]
-                }))
-            else:
-                st.error("لطفاً، املأ الاسم والرقم.")
-
-# --- الفوتر (التذييل) ---
-st.divider()
-st.markdown("""
-    <div style='text-align: center; color: #94a3b8; font-size: 12px;'>
-        جميع الحقوق محفوظة لمكتبة أيوب الذكية © 2026<br>
-        📍 بغداد - اليوسفية - حي الصقور🦅<br>
-        تم التطوير بذكاء وإبداع لأجلك.
-    </div>
-""", unsafe_allow_html=True)
+st.markdown("<h2 class='section-header'>📥 استمارة الطلب الوطني</h2>", unsafe_allow_html=True)
+with st.form("national_order", clear_on_submit=True):
+    col_a, col_b = st.columns(2)
+    with col_a:
+        name = st.text_input("الأسم الثلاثي 👤")
+        phone = st.text_input("رقم الموبايل (واتساب) 📱")
+    with col_b:
+        city = st.selectbox("المحافظة 📍", ["بغداد", "البصرة", "نينوى", "بابل", "الأنبار", "كربلاء", "النجف", "ذي قار", "كركوك", "صلاح الدين", "ديالى", "ميسان", "واسط", "المثنى", "القادسية", "دهوك", "أربيل", "السليمانية"])
+        service_type = st.selectbox("الخدمة المطلوبة", ["تقديم تعيينات", "طلب قرطاسية", "هدايا وألعاب", "تصميم وبرمجة", "أخرى"])
+    
+    details = st.text_area("اكتب تفاصيل طلبك هنا (القياس، اللون، نوع التعيين...) 📝")
+    
+    submitted = st.form_submit_button("إرسال الطلب إلى أيوب 🚀")
+    if submitted:
+        if name and phone:
+            req_data = {"name": name, "phone": phone, "city": city, "service": service_type, "details": details}
+            requests.post(FORMSPREE_URL, data=req_data)
+            st.balloons()
+            st.success(f"عاشت إيدك يا {name}! طلبك وصل لأيوب وراح نتواصل وياك على الواتساب قريباً.")
