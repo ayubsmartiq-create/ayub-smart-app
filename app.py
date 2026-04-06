@@ -23,11 +23,8 @@ st.markdown(f"""
 """, unsafe_allow_html=True)
 
 # بقية الكود (الستايل والهيدر والدردشة) تبقى كما هي...
-import streamlit as st
-import requests
 
-# --- إعدادات الصفحة ---
-st.set_page_config(page_title="مكتبة أيوب الذكية", page_icon="🦅", layout="wide")
+
 
 # --- ستايل CSS الاحترافي (حل مشكلة اختفاء النصوص) ---
 st.markdown("""
