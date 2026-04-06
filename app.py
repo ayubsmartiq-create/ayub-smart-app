@@ -1,122 +1,105 @@
 import streamlit as st
 import requests
-from datetime import datetime
 
-# --- إعدادات الهوية الوطنية والتقنية ---
+# --- إعدادات الصفحة والهوية ---
 st.set_page_config(page_title="مكتبة أيوب الذكية | Ayub Smart Library", page_icon="🦅", layout="wide")
 
-# رابط الربط الخاص بك (Formspree)
+# رابط Formspree الخاص بك
 FORMSPREE_URL = "https://formspree.io/f/xvzvdjzq"
 
-# --- ستايل CSS المحترف (تصميم ملكي معدل للموبايل) ---
+# --- ستايل CSS الملكي (معدل ليكون احترافي 100%) ---
 st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap');
-    
     html, body, [class*="css"], .stApp { 
         font-family: 'Cairo', sans-serif !important; 
-        text-align: right !important; 
-        direction: rtl !important; 
-        background-color: #0f172a !important; 
-        color: white !important;
+        direction: rtl !important; text-align: right !important;
+        background-color: #0f172a !important; color: white !important;
     }
-    
-    .header-main { 
-        background: linear-gradient(135deg, #1e3a8a 0%, #312e81 100%); 
-        padding: 20px; border-radius: 15px; border: 2px solid #facc15; text-align: center;
-    }
-
-    /* ستايل فقاعات الدردشة (مثل واتساب) */
     .chat-bubble-user { 
-        background: #075e54; color: white; padding: 10px 15px; 
-        border-radius: 15px 15px 0 15px; margin: 10px 5px; float: right; clear: both; max-width: 85%;
+        background: #075e54; color: white; padding: 12px; border-radius: 15px 15px 0 15px; 
+        margin: 10px; float: right; clear: both; max-width: 80%; border: 1px solid #128c7e;
     }
     .chat-bubble-bot { 
-        background: #1e293b; color: white; padding: 10px 15px; 
-        border-radius: 15px 15px 15px 0; margin: 10px 5px; float: left; clear: both; max-width: 85%; 
-        border: 1px solid #334155;
+        background: #1e293b; color: white; padding: 12px; border-radius: 15px 15px 15px 0; 
+        margin: 10px; float: left; clear: both; max-width: 80%; border: 1px solid #334155;
     }
-    
-    .stButton>button, .stFormSubmitButton>button {
-        background-color: #facc15 !important; color: #0f172a !important;
-        font-weight: 900 !important; border-radius: 10px !important; width: 100% !important;
-    }
+    .stButton>button { background-color: #facc15 !important; color: #0f172a !important; font-weight: 900; width: 100%; border-radius: 10px; }
+    .header-box { background: linear-gradient(90deg, #1e3a8a, #312e81); padding: 20px; border-radius: 15px; border: 2px solid #facc15; text-align: center; }
     </style>
 """, unsafe_allow_html=True)
 
-# --- الهيدر واللوغو ---
-with st.container():
-    col_img, col_txt = st.columns([1, 4])
-    with col_img:
-        st.image("https://i.ibb.co/v4m0YmC/image.png", width=120)
-    with col_txt:
-        st.markdown("""
-        <div class="header-main">
-            <h1 style='color: white; margin:0;'>مكتبة أيوب الذكية 🦅</h1>
-            <p style='color: #facc15; font-size:18px;'>المركز التقني الأول لخدمات التعيينات والذكاء الاصطناعي في العراق 🇮🇶</p>
-        </div>
-        """, unsafe_allow_html=True)
+# --- الهيدر ---
+st.markdown("""<div class="header-box">
+    <h1 style='color: white; margin:0;'>🦅 مكتبة أيوب الذكية 🦅</h1>
+    <p style='color: #facc15; font-size:18px;'>خبير الذكاء الاصطناعي والخدمات الإلكترونية في العراق</p>
+</div>""", unsafe_allow_html=True)
 
-# --- أقسام المكتبة ---
-st.divider()
-tab1, tab2, tab3 = st.tabs(["🎁 قرطاسية وهدايا", "🤖 تقنية وذكاء", "📝 تعيينات وتقديم"])
-
-with tab1:
-    st.markdown("### 📚 تجهيزات كاملة\n* قرطاسية ماركات، دفاتر جامعية، أدوات رسم.\n* هدايا حسب الطلب، تغليف ملكي، طباعة حرارية.")
-with tab2:
-    st.markdown("### 🚀 خدمات المستقبل\n* تصميم هويات بصرية ولوغوات.\n* بناء أنظمة ذكاء اصطناعي وأتمتة أعمال.")
-with tab3:
-    st.success("✅ نتابع كافة الاستمارات والتعيينات الحكومية فور صدورها.")
-
-# --- محرك الدردشة الذكي (عقل البوت المطور) ---
-st.divider()
-st.markdown("### 💬 دردش مع مساعد أيوب الذكي")
-
+# --- نظام الدردشة الاحترافي ---
 if "messages" not in st.session_state:
-    st.session_state.messages = [{"role": "bot", "content": "يا هلا بيك عيني! أنا المساعد الذكي لمكتبة أيوب.. شمحتاج اليوم وتدلل؟ 😊"}]
+    st.session_state.messages = [{"role": "bot", "content": "هلا بيك عيني! أنا المساعد الذكي لمكتبة أيوب.. اسألني عن (القرطاسية، الذكاء الاصطناعي، التعيينات) وأبشر بالجواب! 😊"}]
 
 for msg in st.session_state.messages:
     div_class = "chat-bubble-bot" if msg["role"] == "bot" else "chat-bubble-user"
-    st.markdown(f"<div class='{div_class}'>{msg['content']}</div>", unsafe_allow_html=True)
+    st.markdown(f<div class='{div_class}'>{msg['content']}</div>, unsafe_allow_html=True)
 
-user_input = st.chat_input("اكتب سؤالك هنا (مثلاً: شلونكم؟)")
+user_input = st.chat_input("اكتب سؤالك هنا... (مثلاً: شنو خدمات الذكاء الاصطناعي؟)")
 
 if user_input:
     st.session_state.messages.append({"role": "user", "content": user_input})
-    p = user_input.lower().strip()
+    p = user_input.lower()
     
-    # محرك الردود المرن
-    if any(word in p for word in ["سلام", "هلو", "مرحبا", "هلا", "صباح", "مساء"]):
-        ans = "يا مية هلا بجيتك عيني! نورت مكتبة أخوك أيوب.. تفضل شمحتاج اليوم؟ ✨"
-    elif any(word in p for word in ["شلونك", "اخبارك", "اشلونك", "شلونكم"]):
-        ans = "بخير ونعمة من الله إذا أنت بخير! تسلم يا طيب، شأقدر أقدملك اليوم من خدماتنا؟"
-    elif any(word in p for word in ["تعيين", "تقديم", "وظيفة", "استمارة"]):
-        ans = "أبشر! إحنا مختصين بكل أنواع التقديمات. بس املأ اسمك وتفاصيلك بالاستمارة تحت وإحنا نتواصل وياك."
-    elif any(word in p for word in ["موقع", "مكان", "وين"]):
-        ans = "مقرنا باليوسفية - حي الصقور، بس نوصل لكل محافظات العراق من الشمال للجنوب! ✈️"
-    elif any(word in p for word in ["شكرا", "رحم الله", "عاشت"]):
-        ans = "تدلل عيني، هذا واجبي! مكتبة أيوب دائماً بخدمتك."
+    # --- محرك الردود العملاق (عقل أيوب المطور) ---
+    if any(x in p for x in ["هلا", "هلو", "سلام", "مرحبا", "مساء", "صباح"]):
+        ans = "يا مية هلا بجيتك! نورت مكتبة أخوك أيوب.. تفضل عيني شمحتاج اليوم؟"
+    
+    elif any(x in p for x in ["شلونك", "اخبارك", "اشلونك"]):
+        ans = "بخير ونعمة من الله، ربي يحفظك ويخليك! المهم أنت شلونك؟ شأقدر أقدملك؟"
+        
+    elif any(x in p for x in ["ذكاء", "ai", "تكنولوجيا", "بوت", "أتمتة"]):
+        ans = """**🚀 في مجال الذكاء الاصطناعي، أيوب يقدم لك:**
+        1. **بناء بوتات دردشة:** مثل هذا البوت اللي دا تحجي وياه، نبرمجه لشركتك أو صفحتك.
+        2. **أتمتة الأعمال:** تخلي الحاسبة تشتغل بدالك وتخلص معاملاتك تلقائياً.
+        3. **تحليل البيانات:** تحويل جداول البيانات المعقدة إلى تقارير ذكية.
+        4. **توليد المحتوى:** كتابة محتوى وتصميم صور خرافية باستخدام الـ AI."""
+        
+    elif any(x in p for x in ["قرطاسية", "اقلام", "دفاتر", "رسم", "تجهيز"]):
+        ans = """**📚 قسم القرطاسية يضم كل شي ببالك:**
+        * **ماركات عالمية:** أقلام (روترينج، فابر كاستل) ودفاتر فاخرة.
+        * **تجهيز مدرسي وجامعي:** سجلات، حقائب، وأدوات هندسية دقيقة.
+        * **قسم الرسم:** لوحات، ألوان زيتية وأكريليك للمبدعين.
+        * **هدايا:** تغليف ملكي وطباعة حرارية على كل شي."""
+        
+    elif any(x in p for x in ["تساعد", "خدمة", "عالم", "ناس", "تعيين", "تقديم"]):
+        ans = """**🤝 شلون نساعد العالم؟**
+        1. **التعيينات:** نتابع كل استمارة تفتح (عقود، ملاك، أمنية) ونقدملك بدون أخطاء.
+        2. **المعاملات الإلكترونية:** تحديث البطاقة التموينية، الانتخابية، والتقديم على القروض.
+        3. **الطلاب:** تقديم الجامعات (مركزي، مسائي، أهلي) والمنح الدراسية.
+        4. **الاستشارات التقنية:** أي مشكلة بموبايلك أو حاسبتك، أيوب يحلها لك."""
+        
+    elif any(x in p for x in ["موقع", "مكان", "عنوان", "وين"]):
+        ans = "مقرنا الأساسي في **بغداد - اليوسفية - حي الصقور**، وعندنا خدمة توصيل (طيارة ✈️) لكل محافظات العراق من الشمال للجنوب!"
+        
+    elif any(x in p for x in ["شكرا", "رحم الله", "عاشت ايدك"]):
+        ans = "تدلل عيني، هذا واجبي! مكتبة أيوب دائماً بالخدمة وتفخر بزبائنها."
+        
     else:
-        ans = "عذراً عيني، ما فهمت قصدك بالضبط.. تقدر تسألني عن التعيينات، القرطاسية، أو التوصيل وتدلل!"
+        ans = "والله يا طيب ما فهمت سؤالك تمام، بس تقدر تسألني عن (الذكاء الاصطناعي، القرطاسية، التعيينات، أو موقعنا) وتدلل!"
 
     st.session_state.messages.append({"role": "bot", "content": ans})
     st.rerun()
 
-# --- استمارة الطلب الوطني ---
+# --- استمارة الطلب (المرحلة النهائية) ---
 st.divider()
-st.markdown("### 📥 استمارة الطلب (تصل لأيوب فوراً)")
-with st.form("national_order", clear_on_submit=True):
-    c1, c2 = st.columns(2)
-    with c1:
-        name = st.text_input("الأسم الكامل")
-        phone = st.text_input("رقم الواتساب")
-    with c2:
-        city = st.selectbox("المحافظة", ["بغداد", "البصرة", "نينوى", "بقية المحافظات"])
-        serv = st.selectbox("نوع الخدمة", ["تعيينات", "قرطاسية", "تصميم", "أخرى"])
+with st.form("main_order"):
+    st.markdown("### 📥 اطلب خدمتك الآن")
+    f_name = st.text_input("الأسم الكامل")
+    f_phone = st.text_input("رقم الواتساب")
+    f_type = st.selectbox("مجال الطلب", ["ذكاء اصطناعي", "قرطاسية وهدايا", "تعيينات وتقديم", "أخرى"])
+    f_details = st.text_area("اشرح لنا شمحتاج بالضبط")
     
-    msg = st.text_area("تفاصيل طلبك...")
-    if st.form_submit_button("إرسال الطلب 🚀"):
-        if name and phone:
-            requests.post(FORMSPREE_URL, data={"Name": name, "Phone": phone, "City": city, "Service": serv, "Details": msg})
+    if st.form_submit_button("إرسال الطلب إلى أيوب"):
+        if f_name and f_phone:
+            requests.post(FORMSPREE_URL, data={"Name": f_name, "Phone": f_phone, "Type": f_type, "Details": f_details})
             st.balloons()
-            st.success("وصل الطلب! راح نتواصل وياك بأقرب وقت.")
+            st.success(f"عاشت إيدك يا {f_name}! طلبك وصل وراح نتواصل وياك بأسرع وقت.")
