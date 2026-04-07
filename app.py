@@ -258,3 +258,103 @@ if submit:
             st.markdown(f'<a href="https://wa.me/96477XXXXXXXX?text={wa_msg}" target="_blank" style="display: block; text-align: center; background: #25d366; color: white; padding: 15px; border-radius: 10px; text-decoration: none; font-weight: bold;">تأكيد الطلب وإرسال المرفقات عبر الواتساب ✅</a>', unsafe_allow_html=True)
         else:
             st.error("فشل الإرسال، تأكد من اتصال الإنترنت.")
+import streamlit as st
+import requests
+import random
+
+# 1. إعدادات الهوية البصرية
+LOGO_URL = "https://raw.githubusercontent.com/ayubsmartiq-create/ayub-smart-app/main/Ayub-Logo.png"
+MY_WHATSAPP = "96477XXXXXXXX"  # 👈 أيوب، ضع رقمك هنا بدون أصفار بالبداية
+
+st.set_page_config(page_title="مكتبة أيوب الذكية", page_icon=LOGO_URL, layout="wide")
+
+# 2. تصميم الواجهة (CSS)
+st.markdown(f"""
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap');
+    html, body, [class*="css"], .stApp {{
+        font-family: 'Cairo', sans-serif !important;
+        direction: rtl !important; text-align: right !important;
+        background-color: #0f172a !important; color: white !important;
+    }}
+    .header-box {{
+        background: linear-gradient(135deg, #1e40af, #1e3a8a);
+        padding: 30px; border-radius: 20px; border-bottom: 5px solid #facc15;
+        text-align: center; margin-bottom: 25px;
+    }}
+    .wa-button {{
+        display: block; text-align: center; background-color: #25d366; 
+        color: white !important; padding: 15px; border-radius: 12px; 
+        text-decoration: none; font-weight: bold; font-size: 18px;
+        border: 2px solid white; margin-top: 10px;
+    }}
+    .stButton button {{ background: #facc15 !important; color: #1e3a8a !important; font-weight: 900 !important; width: 100%; }}
+    </style>
+""", unsafe_allow_html=True)
+
+# 3. الهيدر الرئيسي
+st.markdown(f'<div class="header-box"><h1>🦅 مكتبة أيوب الذكية </h1><p>السرعة والدقة في إنجاز المعاملات</p></div>', unsafe_allow_html=True)
+
+# 4. التبويبات
+tab1, tab2 = st.tabs(["📑 تقديم طلب جديد", "🔍 تتبع حالة الطلب"])
+
+with tab1:
+    st.subheader("📝 املأ بياناتك وسنتواصل معك")
+    with st.form("ayub_order_form"):
+        name = st.text_input("الأسم الثلاثي")
+        phone = st.text_input("رقم الهاتف (واتساب)")
+        service = st.selectbox("نوع الخدمة", ["تقديم تعيينات", "ذكاء اصطناعي", "مونتاج فيديو", "قرطاسية وتوصيل"])
+        details = st.text_area("ملاحظات إضافية")
+        
+        submit = st.form_submit_button("إرسال البيانات 🚀")
+        
+        if submit:
+            if name and phone:
+                # توليد رقم الطلب
+                order_id = f"AY-{random.randint(1000, 9999)}"
+                
+                # إرسال البيانات النصية للإيميل عبر Formspree
+                form_data = {
+                    "رقم الطلب": order_id,
+                    "الاسم": name,
+                    "الهاتف": phone,
+                    "الخدمة": service,
+                    "التفاصيل": details
+                }
+                
+                try:
+                    response = requests.post("https://formspree.io/f/xvzvdjzq", data=form_data)
+                    
+                    if response.status_code == 200:
+                        st.success(f"✅ تم استلام بياناتك بنجاح! رقم طلبك هو: {order_id}")
+                        st.balloons()
+                        
+                        # تجهيز رابط الواتساب لإرسال الصور
+                        wa_msg = f"مرحباً أيوب، قدمت طلب بالموقع باسم ({name}) ورقم الطلب: {order_id}. هذي الصور والمستمسكات المطلوبة:"
+                        wa_url = f"https://wa.me/{MY_WHATSAPP}?text={wa_msg}"
+                        
+                        st.markdown(f"""
+                            <div style="background: #1e293b; padding: 20px; border-radius: 15px; border: 2px solid #facc15; margin-top: 20px;">
+                                <h3 style="color: #facc15; text-align: center;">باقي خطوة واحدة! 📸</h3>
+                                <p style="text-align: center;">اضغط على الزر أدناه لإرسال صور المستمسكات أو المرفقات عبر الواتساب لتكملة الطلب:</p>
+                                <a href="{wa_url}" target="_blank" class="wa-button">إرسال الصور عبر الواتساب الآن ✅</a>
+                            </div>
+                        """, unsafe_allow_html=True)
+                    else:
+                        st.error("عذراً، حدث خطأ فني. حاول مرة أخرى.")
+                except:
+                    st.error("تأكد من اتصالك بالإنترنت.")
+            else:
+                st.warning("عيني أيوب، لازم يكتب اسمه ورقمه حتى نعرفه!")
+
+with tab2:
+    st.subheader("🔎 تابع معاملتك")
+    track_phone = st.text_input("أدخل رقم الهاتف المسجل")
+    if st.button("استعلام"):
+        if track_phone:
+            st.info(f"الطلب المرتبط بالرقم {track_phone} حالياً **قيد التدقيق**. سيقوم أيوب بالتواصل معك قريباً.")
+        else:
+            st.error("أدخل رقم الهاتف أولاً.")
+
+# 5. الفوتر
+st.markdown("<br><hr><p style='text-align: center; color: gray;'>© 2026 مكتبة أيوب الذكية - اليوسفية، بغداد</p>", unsafe_allow_html=True)
