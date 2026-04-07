@@ -256,7 +256,7 @@ col_call, col_wa = st.columns(2)
 with col_call:
     # استبدل 077XXXXXXXX برقمك الحقيقي للاتصال
     st.markdown("""
-        <a href="tel:077XXXXXXXX" style="text-decoration: none;">
+        <a href="tel:07739778877" style="text-decoration: none;">
             <div style="background: #1e3a8a; padding: 15px; border-radius: 12px; text-align: center; border: 1px solid white;">
                 <p style="color: white; margin: 0; font-weight: bold;">📞 اتصل بنا هاتفياً</p>
                 <p style="color: #cbd5e1; font-size: 11px; margin: 0;">للحالات المستعجلة فقط</p>
