@@ -1,5 +1,4 @@
  import streamlit as st
-
 # 1. إعدادات الصفحة الأساسية واللوغو الخاص بك
 LOGO_URL = "https://raw.githubusercontent.com/ayubsmartiq-create/ayub-smart-app/main/Ayub-Logo.png"
 st.set_page_config(page_title="مكتبة أيوب الذكية", page_icon=LOGO_URL, layout="wide")
