@@ -173,3 +173,26 @@ if prompt := st.chat_input("اكتب استفسارك هنا (مثلاً: شنو
         
         st.write(response)
         st.session_state.messages.append({"role": "assistant", "content": response})
+import random
+import datetime
+
+# أضف هذا الجزء داخل كود الإرسال (Submit)
+if submit:
+    if name and phone:
+        order_id = f"AY-{random.randint(1000, 9999)}" # توليد رقم طلب
+        now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
+        
+        # البيانات اللي راح تروح للإيميل أو الجدول
+        data = {
+            "رقم الطلب": order_id,
+            "الاسم": name,
+            "الهاتف": phone,
+            "الخدمة": service,
+            "التفاصيل": details,
+            "الوقت": now
+        }
+        
+        requests.post("https://formspree.io/f/xvzvdjzq", data=data)
+        
+        st.success(f"عاشت إيدك يا {name}! طلبك وصل بنجاح.")
+        st.info(f"🆔 رقم طلبك هو: **{order_id}** (يرجى حفظه لمتابعة الحالة)")
