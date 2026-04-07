@@ -229,3 +229,47 @@ if chat_query := st.chat_input("اكتب سؤالك هنا.."):
     with st.chat_message("assistant"):
         st.markdown(f'<div style="text-align: right; color: #c5a059; font-weight: bold;">{response}</div>', unsafe_allow_html=True)
     st.session_state.messages.append({"role": "assistant", "content": response})
+# --- الخطوة الخامسة: الختام الملكي والتقييم ---
+st.write("<br><br>", unsafe_allow_html=True)
+
+# 1. أزرار الاتصال السريع (Quick Actions)
+st.markdown('<h4 style="color: #c5a059; text-align: right;">📞 تواصل مباشر مع أيوب</h4>', unsafe_allow_html=True)
+col_call, col_loc = st.columns(2)
+
+with col_call:
+    # استبدل 07700000000 برقمك الفعلي للاتصال
+    st.markdown("""
+        <a href="tel:07739778877" style="text-decoration: none;">
+            <div style="background: #1e3a8a; padding: 15px; border-radius: 12px; text-align: center; border: 1px solid #c5a059;">
+                <p style="color: white; margin: 0; font-weight: bold;">📞 اتصل بنا هاتفياً</p>
+                <p style="color: #cbd5e1; font-size: 11px; margin: 0;">للاستفسارات العاجلة فقط</p>
+            </div>
+        </a>
+    """, unsafe_allow_html=True)
+
+with col_loc:
+    # زر يوضح الموقع (القصر الأوسط)
+    st.markdown("""
+        <div style="background: #1e293b; padding: 15px; border-radius: 12px; text-align: center; border: 1px solid #c5a059;">
+            <p style="color: #facc15; margin: 0; font-weight: bold;">📍 موقعنا الرسمي</p>
+            <p style="color: white; font-size: 11px; margin: 0;">بغداد - اليوسفية - القصر الأوسط</p>
+        </div>
+    """, unsafe_allow_html=True)
+
+# 2. نظام تقييم الخدمة (Star Rating)
+st.write("<br>", unsafe_allow_html=True)
+st.markdown('<h4 style="color: #c5a059; text-align: right;">⭐ رأيك يهمنا يا طيب</h4>', unsafe_allow_html=True)
+rating = st.feedback("stars")
+if rating is not None:
+    st.success(f"شكراً لثقتك! تقييمك {rating+1} نجوم هو دافعنا للاستمرار.")
+
+# 3. الفوتر النهائي (Copyright)
+st.markdown(f"""
+    <hr style="border-color: #c5a059;">
+    <div style="text-align: center; padding: 10px;">
+        <p style="color: #94a3b8; font-size: 12px;">
+            جميع الحقوق محفوظة © {datetime.datetime.now().year} | مكتبة أيوب الذكية <br>
+            تم التطوير بكل فخر لخدمة أهالي القصر الأوسط واليوسفية 🦅✨
+        </p>
+    </div>
+""", unsafe_allow_html=True)
