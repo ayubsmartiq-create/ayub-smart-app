@@ -237,3 +237,49 @@ st.markdown(f"""
         </div>
     </div>
 """, unsafe_allow_html=True)
+# --- الخطوة السادسة: نظام الثقة والتواصل المباشر ---
+
+st.markdown("<br><br>", unsafe_allow_html=True)
+
+# 1. شريط حالة المكتبة (Live Status)
+st.markdown("""
+    <div style="background: #064e3b; padding: 10px; border-radius: 10px; text-align: center; border: 1px solid #10b981;">
+        <span style="color: #10b981; font-weight: bold;">●</span> 
+        <span style="color: white; font-weight: bold;"> حالة المكتبة الآن: نستقبل طلباتكم والسرعة (عالية جداً) 🚀</span>
+    </div>
+""", unsafe_allow_html=True)
+
+# 2. أزرار التواصل السريع (اتصال + واتساب مباشر)
+st.write("<br>", unsafe_allow_html=True)
+col_call, col_wa = st.columns(2)
+
+with col_call:
+    # استبدل 077XXXXXXXX برقمك الحقيقي للاتصال
+    st.markdown("""
+        <a href="tel:077XXXXXXXX" style="text-decoration: none;">
+            <div style="background: #1e3a8a; padding: 15px; border-radius: 12px; text-align: center; border: 1px solid white;">
+                <p style="color: white; margin: 0; font-weight: bold;">📞 اتصل بنا هاتفياً</p>
+                <p style="color: #cbd5e1; font-size: 11px; margin: 0;">للحالات المستعجلة فقط</p>
+            </div>
+        </a>
+    """, unsafe_allow_html=True)
+
+with col_wa:
+    st.markdown(f"""
+        <a href="https://wa.me/{MY_WHATSAPP}" style="text-decoration: none;">
+            <div style="background: #166534; padding: 15px; border-radius: 12px; text-align: center; border: 1px solid white;">
+                <p style="color: white; margin: 0; font-weight: bold;">💬 استفسار سريع واتساب</p>
+                <p style="color: #cbd5e1; font-size: 11px; margin: 0;">رد تلقائي وفوري</p>
+            </div>
+        </a>
+    """, unsafe_allow_html=True)
+
+# 3. نظام "رأيك يهمنا" (Star Rating)
+st.write("<br>", unsafe_allow_html=True)
+st.markdown('<h4 style="color: #facc15; text-align: right;">⭐ قيم تجربتك مع مكتبة أيوب</h4>', unsafe_allow_html=True)
+rating = st.feedback("stars")
+if rating is not None:
+    st.success(f"شكراً لثقتك! تقييمك {rating+1} نجوم يدفعنا للأفضل يا طيب.")
+
+# 4. رسالة الأمان والخصوصية
+st.info("🔒 جميع بياناتك ومستمسكاتك تُعامل بخصوصية تامة ولا يتم مشاركتها مع أي طرف ثالث.")
