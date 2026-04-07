@@ -114,3 +114,46 @@ with st.form("ayub_order_form"):
                 st.error("عذراً، حدث خطأ في الاتصال. تأكد من الإنترنت وحاول مجدداً.")
         else:
             st.warning("عيني أيوب، ذكر الزبون يملأ الاسم والرقم ضروري!")
+# --- 1. فاصل جمالي ---
+st.write("---")
+
+# --- 2. لوحة الخدمات والأسعار (لزيادة الثقة) ---
+st.markdown("""
+    <div style="background: #1e293b; padding: 20px; border-radius: 15px; border: 1px dashed #facc15; margin-bottom: 30px;">
+        <h3 style="color: #facc15; text-align: center; margin-bottom: 15px;">💰 قائمة الخدمات المتوفرة</h3>
+        <table style="width: 100%; color: white; text-align: right; border-collapse: collapse;">
+            <tr style="border-bottom: 1px solid #334155;">
+                <td style="padding: 10px;">📄 التقديم على العقود والتعيينات</td>
+                <td style="padding: 10px; color: #facc15;">تبدأ من 5,000 د.ع</td>
+            </tr>
+            <tr style="border-bottom: 1px solid #334155;">
+                <td style="padding: 10px;">🎬 مونتاج فيديو احترافي (CapCut)</td>
+                <td style="padding: 10px; color: #facc15;">تبدأ من 15,000 د.ع</td>
+            </tr>
+            <tr>
+                <td style="padding: 10px;">🤖 تصميم وبرمجة بوتات ذكية</td>
+                <td style="padding: 10px; color: #facc15;">حسب الاتفاق</td>
+            </tr>
+        </table>
+    </div>
+""", unsafe_allow_html=True)
+
+# --- 3. قسم تتبع حالة المعاملة ---
+st.markdown('<h3 style="color: #facc15; text-align: right;">🔍 تتبع حالة معاملتك</h3>', unsafe_allow_html=True)
+
+with st.container():
+    track_phone = st.text_input("أدخل رقم الهاتف الذي قدمت به الطلب:")
+    if st.button("فحص حالة الطلب 🔎"):
+        if track_phone:
+            # رسالة طمأنة للزبون (تظهر دائماً بشكل مؤقت حتى نربطها بقاعدة بيانات مستقبلاً)
+            st.info(f"الطلب المرتبط بالرقم ({track_phone}) قيد التدقيق حالياً. سيقوم أيوب بالتواصل معك فور إكمال المعاملة.")
+        else:
+            st.warning("يرجى إدخال رقم الهاتف أولاً.")
+
+# --- 4. تذييل الصفحة (الفوتر) ---
+st.markdown(f"""
+    <div style="text-align: center; margin-top: 50px; padding: 20px; border-top: 1px solid #334155;">
+        <p style="color: #94a3b8;">جميع الحقوق محفوظة لمكتبة أيوب الذكية © {datetime.datetime.now().year}</p>
+        <p style="color: #facc15; font-size: 12px;">اليوسفية - بغداد - العراق</p>
+    </div>
+""", unsafe_allow_html=True)
