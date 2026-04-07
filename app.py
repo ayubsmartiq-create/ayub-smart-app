@@ -162,3 +162,70 @@ with st.container():
                 """, unsafe_allow_html=True)
             else:
                 st.warning("عيني أيوب، ذكّر الزبون يكتب اسمه ورقمه حتى ما يضيع طلبه!")
+# --- الخطوة الرابعة: نظام التتبع والمساعد الذكي ---
+st.write("---")
+
+# 1. تصميم واجهة التتبع (Tracking System)
+st.markdown('<h3 style="color: #c5a059; text-align: right;">🔍 تتبع حالة معاملتك</h3>', unsafe_allow_html=True)
+st.markdown('<p style="color: #94a3b8;">أدخل كود الطلب (AY-XXXX) لمعرفة أين وصلت معاملتك الآن:</p>', unsafe_allow_html=True)
+
+col_track, col_status = st.columns([2, 1])
+
+with col_track:
+    track_input = st.text_input("كود الطلب الخاص بك", placeholder="مثلاً: AY-1234")
+
+if st.button("فحص الحالة الآن 🚀"):
+    if track_input:
+        # رد احترافي يطمئن الزبون
+        st.markdown(f"""
+            <div style="background: #1e293b; padding: 20px; border-radius: 15px; border-right: 5px solid #34d399; margin-top: 10px;">
+                <h4 style="color: #34d399; margin: 0;">الطلب {track_input} قيد المعالجة ⏳</h4>
+                <p style="color: white; font-size: 14px; margin-top: 5px;">
+                    عيني، طلبك وصل وأيوب حالياً دا يشيك المعلومات. سيتم إشعارك فور اكتمال المعاملة عبر الواتساب.
+                </p>
+            </div>
+        """, unsafe_allow_html=True)
+    else:
+        st.warning("يرجى إدخال الكود أولاً يا طيب!")
+
+st.write("<br><br>", unsafe_allow_html=True)
+
+# 2. المساعد الذكي "أبو الغيرة" (AI Chatbot)
+st.markdown("""
+    <div style="background: linear-gradient(135deg, #1e293b, #0f172a); padding: 20px; border-radius: 20px; border: 2px solid #c5a059; text-align: center;">
+        <h3 style="color: #c5a059; margin: 0;">🤖 مساعد أيوب الذكي (خادمكم الصغير)</h3>
+        <p style="color: #94a3b8; font-size: 14px;">اسألني عن أي شيء (أسعار، مستمسكات، عنوان) وأنا أجاوبك!</p>
+    </div>
+""", unsafe_allow_html=True)
+
+# تهيئة ذاكرة المحادثة
+if "messages" not in st.session_state:
+    st.session_state.messages = [{"role": "assistant", "content": "يا مية هلا بجيتك! نورت مكتبة أخوك أيوب. آمرني بشنو أقدر أخدمك؟"}]
+
+# عرض الدردشة
+for msg in st.session_state.messages:
+    with st.chat_message(msg["role"]):
+        st.markdown(f'<div style="text-align: right; color: white;">{msg["content"]}</div>', unsafe_allow_html=True)
+
+# استقبال سؤال الزبون
+if chat_query := st.chat_input("اكتب سؤالك هنا.."):
+    st.session_state.messages.append({"role": "user", "content": chat_query})
+    with st.chat_message("user"):
+        st.markdown(f'<div style="text-align: right;">{chat_query}</div>', unsafe_allow_html=True)
+
+    # ردود ذكية باللهجة العراقية
+    q = chat_query.lower()
+    if any(x in q for x in ["وين", "مكان", "عنوان"]):
+        response = "تدلل عيوني! إحنا موجودين بـ **بغداد - اليوسفية - القصر الأوسط**. بس تدري، شغلنا كله أونلاين وبسرعة البرق، يعني وأنت كاعد ببيتك نخلص لك كل شيء!"
+    elif any(x in q for x in ["سعر", "بيش", "تكلفة"]):
+        response = "أسعارنا 'مال أخوة' وتبدأ من 5 آلاف دينار للتقديمات البسيطة. المونتاج والتصاميم حسب التعب بس ما نختلف، أنت بس اطلب وما يكون خاطرك إلا طيب!"
+    elif any(x in q for x in ["مستمسكات", "تقديم", "عقد"]):
+        response = "عيني، للتقديم نحتاج منك (الجنسية، بطاقة السكن، ووثيقة التخرج). صورهن بتلفونك وادزهن واتساب لأيوب بعد ما تملأ الاستمارة فوك."
+    elif any(x in q for x in ["شكرا", "ممنون", "خوش"]):
+        response = "بخدمتك يا غالي! هذا واجبنا. إذا احتاجيت أي شيء ثاني، أنا موجود 24 ساعة."
+    else:
+        response = "والله يا طيب سؤالك يحتاج له صفنة من أيوب نفسه. يفضل تضغط على زر الواتساب فوك وتسأله مباشرة، هو يجاوبك جواب شافي وكافي!"
+
+    with st.chat_message("assistant"):
+        st.markdown(f'<div style="text-align: right; color: #c5a059; font-weight: bold;">{response}</div>', unsafe_allow_html=True)
+    st.session_state.messages.append({"role": "assistant", "content": response})
