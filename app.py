@@ -157,3 +157,83 @@ st.markdown(f"""
         <p style="color: #facc15; font-size: 12px;">اليوسفية - بغداد - العراق</p>
     </div>
 """, unsafe_allow_html=True)
+# --- إضافة مسافة جمالية كبيرة قبل المساعد ---
+st.markdown("<br><br><br>", unsafe_allow_html=True)
+
+# --- تصميم حاوية المساعد الذكي ---
+st.markdown("""
+    <div style="background: linear-gradient(135deg, #1e293b, #0f172a); padding: 25px; border-radius: 20px; border: 2px solid #facc15; box-shadow: 0px 10px 30px rgba(0,0,0,0.5);">
+        <h2 style="color: #facc15; text-align: center; margin-bottom: 10px;">🤖 مستشارك الذكي (أبو الغيرة)</h2>
+        <p style="color: #94a3b8; text-align: center; font-size: 14px;">خادمكم موجود 24 ساعة.. اسألني عن أي شيء ببالك!</p>
+    </div>
+    <br>
+""", unsafe_allow_html=True)
+
+# 1. تهيئة الذاكرة والترحيب الحار
+if "messages" not in st.session_state:
+    st.session_state.messages = [
+        {"role": "assistant", "content": "يا مية هلا بجيتك! نورت مكتبة أخوك أيوب هاني. أنا مساعدك الذكي، اعتبرني أخوك الصغير وآمرني.. تريد تقديم، مونتاج، لو بس جاي تسلم؟ العين إلك والراس إلك! 🦅✨"}
+    ]
+
+# 2. عرض المحادثة بتنسيق أنيق
+for msg in st.session_state.messages:
+    with st.chat_message(msg["role"]):
+        st.markdown(f'<div style="text-align: right; font-size: 16px; line-height: 1.6;">{msg["content"]}</div>', unsafe_allow_html=True)
+
+# 3. معالجة الأسئلة بذكاء "ابن ولاية"
+if user_input := st.chat_input("اكتب سؤالك هنا.. (مثلاً: شوكت تخلص معاملتي؟)"):
+    st.session_state.messages.append({"role": "user", "content": user_input})
+    with st.chat_message("user"):
+        st.markdown(f'<div style="text-align: right;">{user_input}</div>', unsafe_allow_html=True)
+
+    # --- منطق الردود الواسعة والممتعة ---
+    u = user_input.lower()
+    response = ""
+
+    if any(word in u for word in ["شلونك", "اخبارك", "يا هلا", "هلو", "مرحبا"]):
+        response = "بخير ونعمة إذا أنت بخير! نورتنا يا طيب. أنا هنا حتى أسهل عليك أمورك، كولي بشنو أقدر أخدمك اليوم؟"
+    
+    elif any(word in u for word in ["عنوان", "مكان", "وين"]):
+        response = "تدلل عيوني! إحنا موجودين بـ **بغداد - اليوسفية - القصر الأوسط**. بس تدري، إحنا شغلنا كله 'أونلاين' وبسرعة البرق، يعني وأنت كاعد ببيتك تشرب شاي، أيوب يخلص لك معاملتك ويدزها لك واتساب!"
+    
+    elif any(word in u for word in ["تقديم", "عقد", "تعيين", "استمارة"]):
+        response = "التقديم عدنا 'غير شكل'! أيوب يشيك لك كل المعلومات حتى ما ترفضك الوزارة. نحتاج منك (الجنسية، بطاقة السكن، وصورة للشهادة). املأ الاستمارة اللي فوك، ووديك للواتساب حتى تدز الصور، والباقي علينا.. نام رغد!"
+    
+    elif any(word in u for word in ["مونتاج", "فيديو", "تيك توك", "كاب كات"]):
+        response = "أوه! جيت على الاختصاص. أيوب ملك الـ CapCut بالمنطقة. يسوي لك مونتاج يخلي الفيديو مالتك 'طاير' ترند. انتقالات خرافية، تعديل ألوان، وكتابة سيناريو. تريد فيديو لمحلك لو شخصي؟"
+    
+    elif any(word in u for word in ["سعر", "فلوس", "بيش", "تكلفة"]):
+        response = "لا تشيل هم الفلوس، إحنا ولد منطقة وحدة وما نختلف. التقديم يبدأ من 5 آلاف، والمونتاج حسب الشغل. أهم شي تطلع راضي وتدعي لنا بالخير!"
+    
+    elif any(word in u for word in ["وقت", "شوكت", "تأخير"]):
+        response = "أيوب ما يحب التأخير، شعاره 'السرعة والدقة'. أغلب المعاملات تخلص بنفس اليوم، وإذا بيها زخم، فما تعبر الـ 24 ساعة. إنت بس انطينا رقم طلبك بالواتساب ونبشرك!"
+    
+    elif any(word in u for word in ["ذكاء", "بوت", "برمجة"]):
+        response = "إي نعم! إحنا مو بس مكتبة، إحنا مركز تقني. نصمم لك بوتات ذكية مثل حلاتي تخدم شغلك وتجاوب زبائنك وأنت نايم. تريد نسوي لك واحد؟"
+
+    elif any(word in u for word in ["صورة", "رفع", "مستمسك"]):
+        response = "عيني، الصور ما ترفعهن هنا بالموقع للخصوصية. من تدوس 'إرسال' بالاستمارة فوك، راح يطلع لك زر أخضر يوديك للواتساب، هناك دز الصور لأيوب بأمان."
+
+    elif any(word in u for word in ["شكرا", "ممنون", "خوش"]):
+        response = "بخدمتك يا غالي! هذا واجبنا. إذا احتاجيت أي شي ثاني، أنا موجود.. لا تتردد!"
+
+    else:
+        response = "والله يا طيب، هذا السؤال يحتاج له 'صفنة' من أيوب نفسه. ياريت تضغط على زر الواتساب فوك وتسأله مباشرة، هو يجاوبك جواب شافي وكافي!"
+
+    # عرض الرد مع لمسة ذهبية
+    with st.chat_message("assistant"):
+        st.markdown(f'<div style="text-align: right; color: #facc15; font-weight: bold; border-right: 3px solid #facc15; padding-right: 10px;">{response}</div>', unsafe_allow_html=True)
+    st.session_state.messages.append({"role": "assistant", "content": response})
+
+# --- الفوتر المحدث بالعنوان الدقيق ---
+st.markdown(f"""
+    <br><br>
+    <div style="text-align: center; padding: 30px; background: #0f172a; border-top: 2px solid #1e40af;">
+        <h4 style="color: #facc15;">📍 مكتبة أيوب الذكية</h4>
+        <p style="color: white; font-size: 14px;">العراق - بغداد - اليوسفية - القصر الأوسط</p>
+        <p style="color: #64748b; font-size: 12px;">© {datetime.datetime.now().year} | تطوير وإدارة: أيوب هاني</p>
+        <div style="margin-top: 10px;">
+            <span style="background: #1e3a8a; color: white; padding: 5px 15px; border-radius: 20px; font-size: 10px;">خدمة متاحة 24/7 أونلاين</span>
+        </div>
+    </div>
+""", unsafe_allow_html=True)
