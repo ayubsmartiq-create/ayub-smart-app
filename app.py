@@ -53,3 +53,55 @@ st.markdown("""
 
 st.write("---")
 st.success("عاشت إيدك يا بطل! الخطوة الأولى (التأسيس) اشتغلت بنجاح.")
+# --- الخطوة الثانية: عرض الخدمات باحترافية ---
+
+st.markdown('<h2 style="color: #c5a059; text-align: center;">🌟 خدماتنا الرقمية المتكاملة</h2>', unsafe_allow_html=True)
+st.markdown('<p style="text-align: center; color: #94a3b8;">اختر الفئة التي تهمك وشاهد ماذا نقدم لك</p>', unsafe_allow_html=True)
+
+# تقسيم الخدمات لثلاثة أعمدة (Layout)
+col_tech, col_design, col_money = st.columns(3)
+
+with col_tech:
+    st.markdown("""
+        <div style="background: #1e293b; padding: 20px; border-radius: 15px; border-top: 5px solid #c5a059; height: 350px;">
+            <h3 style="color: #facc15; text-align: center;">📂 الخدمات المكتبية</h3>
+            <p style="font-size: 14px; line-height: 1.8;">
+                ✅ استنساخ وملازم (أسود/ملون)<br>
+                ✅ طباعة ملفات وبحوث<br>
+                ✅ تحويل ملفات (PDF to Word)<br>
+                ✅ إنشاء سيرة ذاتية (CV) ملكية<br>
+                ✅ تقديم تعيينات وعقود حكومية
+            </p>
+        </div>
+    """, unsafe_allow_html=True)
+
+with col_design:
+    st.markdown("""
+        <div style="background: #1e293b; padding: 20px; border-radius: 15px; border-top: 5px solid #c5a059; height: 350px;">
+            <h3 style="color: #facc15; text-align: center;">🎬 المونتاج والإبداع</h3>
+            <p style="font-size: 14px; line-height: 1.8;">
+                ✅ مونتاج CapCut ترند (TikTok/Insta)<br>
+                ✅ تصميم منيو مطاعم وكافيهات<br>
+                ✅ كارتات عمل (Business Cards)<br>
+                ✅ تصميم باركود (QR) ذكي<br>
+                ✅ سحب صور فوتوغرافية احترافية
+            </p>
+        </div>
+    """, unsafe_allow_html=True)
+
+with col_money:
+    st.markdown("""
+        <div style="background: #1e293b; padding: 20px; border-radius: 15px; border-top: 5px solid #c5a059; height: 350px;">
+            <h3 style="color: #facc15; text-align: center;">💰 المعاملات المالية</h3>
+            <p style="font-size: 14px; line-height: 1.8;">
+                ✅ تحويل واستلام (زين كاش)<br>
+                ✅ دفع فواتير وخدمات أونلاين<br>
+                ✅ تعبئة رصيد وبطاقات ألعاب<br>
+                ✅ استشارات تقنية وذكاء اصطناعي<br>
+                ✅ تحويل أموال داخلي وخارجي
+            </p>
+        </div>
+    """, unsafe_allow_html=True)
+
+st.write("<br>", unsafe_allow_html=True)
+st.info("💡 ملاحظة: جميع الخدمات تتم بدقة وسرعة وبإشراف مباشر من أخوكم أيوب.")
