@@ -1,3 +1,55 @@
+# --- الخطوة الخامسة: شريط العروض والتحفيز (Marketing Tools) ---
+
+# 1. شريط متحرك أو بارز للعروض (Marquee Effect)
+st.markdown("""
+    <div style="background-color: #ef4444; color: white; padding: 10px; border-radius: 10px; text-align: center; font-weight: bold; border: 2px solid #facc15; margin-bottom: 20px; animation: pulse 2s infinite;">
+        📢 عرض خاص لأهل القصر الأوسط: خصم 20% على مونتاج الفيديوهات الطويلة! 🎬✨
+    </div>
+    <style>
+    @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.02); }
+        100% { transform: scale(1); }
+    }
+    </style>
+""", unsafe_allow_html=True)
+
+# 2. كارتات العروض السريعة (Quick Offers)
+st.markdown('<h3 style="color: #facc15; text-align: right;">🔥 عروض مكتبة أيوب الحصرية</h3>', unsafe_allow_html=True)
+
+col_offer1, col_offer2 = st.columns(2)
+
+with col_offer1:
+    st.markdown("""
+        <div style="background: linear-gradient(45deg, #1e3a8a, #1e40af); padding: 15px; border-radius: 15px; border: 1px solid #facc15; text-align: center;">
+            <h4 style="color: #facc15; margin: 0;">باكج التقديم الكامل 📄</h4>
+            <p style="color: white; font-size: 13px;">تقديم + استشارة + متابعة حالة الطلب</p>
+            <span style="background: white; color: #1e3a8a; padding: 2px 10px; border-radius: 10px; font-weight: bold;">فقط 7,000 د.ع</span>
+        </div>
+    """, unsafe_allow_html=True)
+
+with col_offer2:
+    st.markdown("""
+        <div style="background: linear-gradient(45deg, #166534, #15803d); padding: 15px; border-radius: 15px; border: 1px solid #facc15; text-align: center;">
+            <h4 style="color: #facc15; margin: 0;">عرض المونتاج الذهبي 🎬</h4>
+            <p style="color: white; font-size: 13px;">فيديو تيك توك احترافي مع تريند موسيقي</p>
+            <span style="background: white; color: #166534; padding: 2px 10px; border-radius: 10px; font-weight: bold;">يبدأ من 10,000 د.ع</span>
+        </div>
+    """, unsafe_allow_html=True)
+
+st.write("<br>", unsafe_allow_html=True)
+
+# 3. قسم "كلمة من أيوب" (بناء الثقة)
+st.markdown(f"""
+    <div style="background: #1e293b; padding: 15px; border-radius: 10px; border-right: 5px solid #facc15;">
+        <p style="color: white; font-style: italic; margin: 0;">
+            "أهلي وناسي بالقصر الأوسط واليوسفية.. هدفنا مو بس نخلص معاملتكم، هدفنا نسهلها عليكم بأحدث التقنيات وبأسعار مال أخوة. أي خدمة تحتاجها، اعتبرها مكضية." 🦅
+        </p>
+        <p style="color: #facc15; text-align: left; font-weight: bold; margin: 0;">- أخوكم أيوب هاني</p>
+    </div>
+""", unsafe_allow_html=True)
+st.write("<br>", unsafe_allow_html=True)
+
 import streamlit as st
 
 # 1. إعدادات الصفحة الأساسية واللوغو الخاص بك
