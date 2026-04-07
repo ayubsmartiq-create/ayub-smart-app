@@ -53,3 +53,66 @@ st.markdown("""
 
 st.write("---")
 st.success("تم تشغيل الخطوة الأولى بنجاح! الألوان والخطوط جاهزة الآن.")
+# --- تحديث قائمة الخدمات في الاستمارة (توضع داخل st.form السابق) ---
+# ملاحظة: قم بتحديث سطر الـ selectbox في الكود السابق بهذا السطر:
+service = st.selectbox("اختر الخدمة اللي تلمع بعينك ✨", 
+                      ["استنساخ وطباعة ملازم (أسود/ملون)", 
+                       "تحويل ملفات (PDF to Word) والعكس", 
+                       "سحب صور فوتوغرافية بجودة عالية",
+                       "تحويل واستلام أموال (زين كاش/طيف)",
+                       "إنشاء سيرة ذاتية (CV) احترافي",
+                       "تصميم (منيو - كارت عمل - باركود)",
+                       "تقديم تعيينات وعقود حكومية",
+                       "مونتاج فيديو (CapCut) احترافي"])
+
+# --- إضافة قسم "شبكة الخدمات" الملونة (تحت الاستمارة) ---
+st.write("---")
+st.markdown('<h3 style="color: #c5a059; text-align: center;">🌟 خدماتنا الرقمية المتكاملة</h3>', unsafe_allow_html=True)
+
+# تقسيم الخدمات على شكل مربعات (Grid)
+col_a, col_b, col_c = st.columns(3)
+
+with col_a:
+    st.markdown("""
+        <div style="background: #1e293b; padding: 15px; border-radius: 15px; border: 1px solid #c5a059; text-align: center; height: 180px;">
+            <h4 style="color: #facc15;">🖨️ طباعة وقرطاسية</h4>
+            <p style="color: white; font-size: 13px;">طباعة ملازم، استنساخ، وتحويل ملفات PDF بوضوح تام.</p>
+        </div>
+    """, unsafe_allow_html=True)
+    st.write("") # مسافة
+    st.markdown("""
+        <div style="background: #1e293b; padding: 15px; border-radius: 15px; border: 1px solid #c5a059; text-align: center; height: 180px;">
+            <h4 style="color: #facc15;">💳 تحويل فلوس</h4>
+            <p style="color: white; font-size: 13px;">حول واستلم فلوسك بأمان وثقة (زين كاش وغيرها).</p>
+        </div>
+    """, unsafe_allow_html=True)
+
+with col_b:
+    st.markdown("""
+        <div style="background: #1e293b; padding: 15px; border-radius: 15px; border: 1px solid #c5a059; text-align: center; height: 180px;">
+            <h4 style="color: #facc15;">🎨 تصميم وإبداع</h4>
+            <p style="color: white; font-size: 13px;">تصميم منيو مطاعم، كارتات عمل، وباركدات ذكية (QR).</p>
+        </div>
+    """, unsafe_allow_html=True)
+    st.write("") # مسافة
+    st.markdown("""
+        <div style="background: #1e293b; padding: 15px; border-radius: 15px; border: 1px solid #c5a059; text-align: center; height: 180px;">
+            <h4 style="color: #facc15;">📄 سير ذاتية CV</h4>
+            <p style="color: white; font-size: 13px;">نصمم لك CV يخلي صاحب العمل يتصل بيك فوراً!</p>
+        </div>
+    """, unsafe_allow_html=True)
+
+with col_c:
+    st.markdown("""
+        <div style="background: #1e293b; padding: 15px; border-radius: 15px; border: 1px solid #c5a059; text-align: center; height: 180px;">
+            <h4 style="color: #facc15;">🖼️ سحب صور</h4>
+            <p style="color: white; font-size: 13px;">حول صور موبايلك إلى صور فوتوغرافية تذكرك بأحلى اللحظات.</p>
+        </div>
+    """, unsafe_allow_html=True)
+    st.write("") # مسافة
+    st.markdown("""
+        <div style="background: #1e293b; padding: 15px; border-radius: 15px; border: 1px solid #c5a059; text-align: center; height: 180px;">
+            <h4 style="color: #facc15;">🚀 خدمات أونلاين</h4>
+            <p style="color: white; font-size: 13px;">تقديم تعيينات، مونتاج فيديوهات، وكل ما يخص الإنترنت.</p>
+        </div>
+    """, unsafe_allow_html=True)
