@@ -370,3 +370,37 @@ st.markdown(f"""
         </a>
     </div>
 """, unsafe_allow_html=True)
+# --- الخطوة العاشرة: مركز التحميل والأرشفة ---
+st.write("---")
+
+st.markdown('<h3 style="color: #c5a059; text-align: center;">📥 مركز استلام الملفات الرقمية</h3>', unsafe_allow_html=True)
+st.markdown('<p style="text-align: center; color: #94a3b8;">إذا أرسل لك أيوب كود تحميل، أدخله هنا لتحميل ملفاتك (PDF/تصاميم)</p>', unsafe_allow_html=True)
+
+# نظام تحميل الملفات (File Downloader)
+download_col1, download_col2 = st.columns([2, 1])
+
+with download_col1:
+    file_code = st.text_input("أدخل كود الملف الخاص بك", placeholder="مثلاً: FILE-99")
+
+with download_col2:
+    # هذا الزر يحاكي عملية البحث عن الملف في سيرفر أيوب
+    if st.button("جلب الملف الآن ☁️"):
+        if file_code:
+            st.info(f"جاري البحث عن الملف {file_code} في قاعدة بيانات مكتبة أيوب...")
+            st.warning("يرجى التواصل مع أيوب لتفعيل رابط التحميل المباشر لهذا الكود.")
+        else:
+            st.error("اكتب الكود أولاً عيني!")
+
+# رسالة الختام النهائية للموقع (بعد كل الخطوات)
+st.markdown("""
+    <br><br>
+    <div style="text-align: center; background: rgba(197, 160, 89, 0.05); padding: 30px; border-radius: 30px; border: 1px solid #c5a059;">
+        <h2 style="color: #c5a059; margin: 0;">🦅 مكتبة أيوب هاني الذكية</h2>
+        <p style="color: white; font-size: 16px;">شكراً لزيارتكم.. نسعد دائماً بخدمتكم في القصر الأوسط</p>
+        <div style="margin-top: 15px;">
+            <span style="color: #25d366;">● متصل الآن</span> | 
+            <span style="color: #facc15;">● جودة مضمونة</span> | 
+            <span style="color: #3b82f6;">● سرعة في التنفيذ</span>
+        </div>
+    </div>
+""", unsafe_allow_html=True)
