@@ -303,3 +303,36 @@ if st.button("📢 شارك الموقع مع أصدقائك"):
     st.balloons()
     st.info("انسخ رابط الصفحة من المتصفح وأرسله لأصدقائك في اليوسفية ليستفيدوا من الخدمات!")
 
+# --- الخطوة السابعة: قسم العروض الحصرية (Flash Sales) ---
+st.write("---")
+st.markdown('<h3 style="color: #c5a059; text-align: center;">🎁 عروض أيوب لهذا الأسبوع</h3>', unsafe_allow_html=True)
+
+# تصميم العروض بشكل كارتات ملونة لجذب الانتباه
+col_off1, col_off2 = st.columns(2)
+
+with col_off1:
+    st.markdown("""
+        <div style="background: linear-gradient(45deg, #0b3d61, #1e3a8a); padding: 20px; border-radius: 15px; border: 2px dashed #facc15; text-align: center;">
+            <span style="background: #ef4444; color: white; padding: 2px 10px; border-radius: 5px; font-size: 12px; font-weight: bold;">عرض محدود 🔥</span>
+            <h4 style="color: #facc15; margin-top: 10px;">باكج الطالب المثالي</h4>
+            <p style="color: white; font-size: 13px;">طباعة ملزمة (100 صفحة) + تحويل PDF مجاني</p>
+            <h3 style="color: white; margin: 0;">بـ 5,000 د.ع فقط</h3>
+        </div>
+    """, unsafe_allow_html=True)
+
+with col_off2:
+    st.markdown("""
+        <div style="background: linear-gradient(45deg, #166534, #064e3b); padding: 20px; border-radius: 15px; border: 2px dashed #34d399; text-align: center;">
+            <span style="background: #facc15; color: #1e293b; padding: 2px 10px; border-radius: 5px; font-size: 12px; font-weight: bold;">عرض المونتاج 🎬</span>
+            <h4 style="color: #34d399; margin-top: 10px;">ترند تيك توك الاحترافي</h4>
+            <p style="color: white; font-size: 13px;">مونتاج فيديو 30 ثانية مع حقوقك الخاصة</p>
+            <h3 style="color: white; margin: 0;">خصم 25% لأول طلب</h3>
+        </div>
+    """, unsafe_allow_html=True)
+
+# إضافة عداد تنازلي بسيط (شكل فقط) لتحفيز الزبون
+st.markdown("""
+    <p style="text-align: center; color: #94a3b8; font-size: 12px; margin-top: 10px;">
+        ⏳ تنتهي هذه العروض خلال 48 ساعة من الآن!
+    </p>
+""", unsafe_allow_html=True)
