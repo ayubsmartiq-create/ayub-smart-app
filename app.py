@@ -336,3 +336,37 @@ st.markdown("""
         ⏳ تنتهي هذه العروض خلال 48 ساعة من الآن!
     </p>
 """, unsafe_allow_html=True)
+# --- الخطوة التاسعة: الموقع الجغرافي وساعات العمل ---
+st.write("---")
+
+col_map, col_time = st.columns([2, 1])
+
+with col_map:
+    st.markdown('<h3 style="color: #c5a059; text-align: right;">📍 موقعنا في اليوسفية</h3>', unsafe_allow_html=True)
+    # ملاحظة: سنضع خريطة افتراضية لبغداد/اليوسفية، ويمكنك تحديث الإحداثيات لاحقاً
+    # الإحداثيات التقريبية لمنطقة القصر الأوسط
+    map_data = {"lat": [33.0989], "lon": [44.2186]} 
+    st.map(map_data, zoom=12)
+    st.markdown('<p style="color: #94a3b8; font-size: 12px; text-align: center;">العنوان: بغداد - اليوسفية - القصر الأوسط</p>', unsafe_allow_html=True)
+
+with col_time:
+    st.markdown('<h3 style="color: #c5a059; text-align: right;">⏰ أوقات العمل</h3>', unsafe_allow_html=True)
+    st.markdown("""
+        <div style="background: #1e293b; padding: 15px; border-radius: 12px; border: 1px solid #c5a059;">
+            <p style="color: white; margin-bottom: 5px;"><b>• السبت - الخميس:</b><br>من 9:00 صباحاً إلى 9:00 مساءً</p>
+            <p style="color: white; margin-bottom: 5px;"><b>• الجمعة:</b><br>عطلة (نستقبل طلبات الأونلاين فقط)</p>
+            <hr style="border-color: #c5a059;">
+            <p style="color: #facc15; font-size: 13px; margin: 0; text-align: center;">✅ خدمة التوصيل متوفرة طيلة أيام الأسبوع</p>
+        </div>
+    """, unsafe_allow_html=True)
+
+# إضافة زر "فتح الموقع في خرائط Google"
+st.markdown(f"""
+    <div style="text-align: center; margin-top: 10px;">
+        <a href="https://www.google.com/maps/search/?api=1&query=Yusufiyah+Baghdad" target="_blank" style="text-decoration: none;">
+            <button style="background-color: #1e293b; color: #c5a059; border: 1px solid #c5a059; padding: 8px 20px; border-radius: 20px; cursor: pointer;">
+                فتح في خرائط Google 📍
+            </button>
+        </a>
+    </div>
+""", unsafe_allow_html=True)
