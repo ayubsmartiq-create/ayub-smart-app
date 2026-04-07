@@ -102,3 +102,74 @@ st.markdown("""
         <p style="font-size: 12px; color: gray;">الموقع: بغداد - اليوسفية - مكتبة أيوب الذكية</p>
     </div>
 """, unsafe_allow_html=True)
+# 1. إضافة شريط العروض في أعلى الصفحة
+st.markdown("""
+    <div style="background-color: #ef4444; color: white; text-align: center; padding: 5px; font-weight: bold; border-radius: 5px;">
+        🔥 عرض محدود: استشارة ذكاء اصطناعي مجانية عند طلب أي خدمة تقديم إلكتروني!
+    </div>
+""", unsafe_allow_html=True)
+
+# 2. كود تحويل الموقع لتطبيق (يضاف في الـ Head)
+st.markdown("""
+    <script>
+    // كود بسيط لإشعار المستخدم بإضافة الموقع للشاشة الرئيسية
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function() {
+        navigator.serviceWorker.register('/sw.js');
+      });
+    }
+    </script>
+""", unsafe_allow_html=True)
+# أضف هذا القسم قبل الاستمارة مباشرة
+st.markdown("""
+    <div style="background: #1e293b; padding: 20px; border-radius: 15px; border: 1px dashed #facc15; margin-bottom: 20px;">
+        <h3 style="color: #facc15; text-align: center;">💰 قائمة الخدمات والأسعار</h3>
+        <table style="width: 100%; color: white; text-align: right;">
+            <tr><td>📄 التقديم الإلكتروني (عقود/تعيينات)</td><td>تبدأ من 5,000 د.ع</td></tr>
+            <tr><td>🎬 مونتاج فيديو احترافي (CapCut)</td><td>تبدأ من 15,000 د.ع</td></tr>
+            <tr><td>🤖 بناء بوت ذكاء اصطناعي خاص</td><td>حسب الاتفاق</td></tr>
+        </table>
+    </div>
+""", unsafe_allow_html=True)
+
+# أضف خانة كود الخصم داخل الاستمارة
+promo_code = st.text_input("🎟️ هل لديك كود خصم؟")
+# 1. إعداد نظام الذاكرة للمساعد الذكي
+if "messages" not in st.session_state:
+    st.session_state.messages = [
+        {"role": "assistant", "content": "هلا بيك بمكتبة أيوب الذكية! 🦅 أنا مساعد أيوب التقني، شلون أقدر أساعدك بمعاملاتك اليوم؟"}
+    ]
+
+# 2. تصميم واجهة المساعد (UI)
+st.markdown("""
+    <div style="background: linear-gradient(90deg, #1e3a8a, #1e40af); padding: 15px; border-radius: 15px 15px 0 0; border-bottom: 3px solid #facc15;">
+        <h3 style="color: white; margin: 0; text-align: center;">🤖 مساعد أيوب الذكي</h3>
+    </div>
+""", unsafe_allow_html=True)
+
+# عرض الرسائل السابقة
+for message in st.session_state.messages:
+    with st.chat_message(message["role"]):
+        st.write(message["content"])
+
+# 3. معالجة إدخال الزبون
+if prompt := st.chat_input("اكتب استفسارك هنا (مثلاً: شنو المستمسكات المطلوبة للتعيين؟)"):
+    # إضافة رسالة الزبون للذاكرة
+    st.session_state.messages.append({"role": "user", "content": prompt})
+    with st.chat_message("user"):
+        st.write(prompt)
+
+    # رد المساعد (هنا نضع المنطق الذكي)
+    with st.chat_message("assistant"):
+        response = ""
+        if "تعيين" in prompt or "عقد" in prompt:
+            response = "تدلل! للتقديم على التعيينات نحتاج منك (الجنسية، بطاقة السكن، وشهادة التخرج). تقدر ترفعهن بالاستمارة جوه أو تراسلنا واتساب."
+        elif "مونتاج" in prompt or "تصميم" in prompt:
+            response = "أنت بالمكان الصح! أيوب خبير مونتاج ببرنامج CapCut، نكدر نسويلك فيديو احترافي (Transitions و Color Grading) يبيض الوجه. شنو نوع الفيديو اللي تريده؟"
+        elif "ذكاء" in prompt or "بوت" in prompt:
+            response = "هذا اختصاصنا! نصمم لك بوتات ذكية ونعلمك شلون تستخدم الـ AI بشغلك. تريد نبني لك بوت خاص؟"
+        else:
+            response = "رسالتك وصلت يا طيب. أيوب راح يشوف الطلب ويجاوبك بأسرع وقت، أو تقدر تضغط على زر الواتساب للتواصل المباشر."
+        
+        st.write(response)
+        st.session_state.messages.append({"role": "assistant", "content": response})
