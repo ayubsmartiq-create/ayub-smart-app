@@ -105,3 +105,60 @@ with col_money:
 
 st.write("<br>", unsafe_allow_html=True)
 st.info("💡 ملاحظة: جميع الخدمات تتم بدقة وسرعة وبإشراف مباشر من أخوكم أيوب.")
+import random
+import datetime
+
+# --- إعدادات التواصل مالتك يا أيوب ---
+MY_WHATSAPP = "9647739778877"  # 👈 أيوب: حط رقمك الحقيقي هنا (بدون أصفار بالبداية)
+
+st.write("---")
+st.markdown('<h2 style="color: #c5a059; text-align: right;">📑 تقديم طلب خدمة جديد</h2>', unsafe_allow_html=True)
+st.markdown('<p style="color: #94a3b8;">املأ البيانات أدناه للحصول على كود الطلب وتثبيت حجزك</p>', unsafe_allow_html=True)
+
+# تصميم الاستمارة داخل حاوية احترافية
+with st.container():
+    with st.form("ayub_smart_form"):
+        col_name, col_phone = st.columns(2)
+        with col_name:
+            customer_name = st.text_input("الأسم الثلاثي للزبون")
+        with col_phone:
+            customer_phone = st.text_input("رقم الهاتف (واتساب)")
+            
+        selected_service = st.selectbox("ما هي الخدمة التي تحتاجها؟", 
+                                      ["استنساخ وملازم", "مونتاج فيديو (CapCut)", "تحويل مالي (زين كاش)", "تصميم (منيو/كارت/باركود)", "إنشاء سيرة ذاتية CV", "تقديم تعيينات وعقود"])
+        
+        request_details = st.text_area("اشرح لنا طلبك بالتفصيل (أو اكتب الملاحظات)")
+        
+        # زر الإرسال بتصميم ذهبي عريض
+        submit_button = st.form_submit_button("إرسال الطلب وحجز الكود 🚀")
+
+        if submit_button:
+            if customer_name and customer_phone:
+                # 1. توليد كود طلب مميز يبدأ بـ AY
+                order_code = f"AY-{random.randint(1000, 9999)}"
+                current_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
+                
+                # 2. رسالة النجاح داخل تصميم فخم
+                st.markdown(f"""
+                    <div style="background: #1e293b; padding: 20px; border-radius: 15px; border: 2px solid #c5a059; text-align: center; margin-top: 20px;">
+                        <h3 style="color: #34d399; margin: 0;">تم حجز طلبك بنجاح! 🎉</h3>
+                        <p style="color: white; margin: 10px 0;">كود الطلب الخاص بك هو:</p>
+                        <h2 style="color: #facc15; margin: 0; font-size: 40px;">{order_code}</h2>
+                        <p style="color: #94a3b8; font-size: 13px; margin-top: 10px;">يرجى تصوير الشاشة لحفظ الكود.</p>
+                    </div>
+                """, unsafe_allow_html=True)
+                
+                # 3. تجهيز رسالة الواتساب الذكية
+                wa_message = f"مرحباً أيوب، أنا الزبون ({customer_name}). قدمت طلب جديد لخدمة ({selected_service}) برقم طلب: {order_code}. هذي التفاصيل والصور:"
+                whatsapp_url = f"https://wa.me/{MY_WHATSAPP}?text={wa_message}"
+                
+                # 4. زر الانتقال للواتساب لإرسال المرفقات
+                st.markdown(f"""
+                    <a href="{whatsapp_url}" target="_blank" style="text-decoration: none;">
+                        <div style="background-color: #25d366; color: white !important; padding: 15px; border-radius: 12px; text-align: center; font-weight: bold; margin-top: 15px; border: 1px solid white;">
+                            تأكيد الطلب وإرسال المستمسكات (WhatsApp) ✅
+                        </div>
+                    </a>
+                """, unsafe_allow_html=True)
+            else:
+                st.warning("عيني أيوب، ذكّر الزبون يكتب اسمه ورقمه حتى ما يضيع طلبه!")
