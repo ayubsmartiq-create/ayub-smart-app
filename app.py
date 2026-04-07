@@ -196,3 +196,35 @@ if submit:
         
         st.success(f"عاشت إيدك يا {name}! طلبك وصل بنجاح.")
         st.info(f"🆔 رقم طلبك هو: **{order_id}** (يرجى حفظه لمتابعة الحالة)")
+if submit:
+    if name and phone:
+        order_id = f"AY-{random.randint(1000, 9999)}" # توليد رقم الطلب
+        
+        # 1. إرسال البيانات للإيميل كالمعتاد
+        data = {
+            "رقم الطلب": order_id,
+            "الاسم": name,
+            "الهاتف": phone,
+            "الخدمة": service,
+            "التفاصيل": details
+        }
+        requests.post("https://formspree.io/f/xvzvdjzq", data=data)
+        
+        # 2. إنشاء رابط واتساب ذكي يحتوي على رقم الطلب
+        # استبدل 96477XXXXXXXX برقمك الحقيقي
+        wa_number = "96477XXXXXXXX" 
+        wa_message = f"مرحباً مكتبة أيوب، قمت بإرسال طلب جديد باسم ({name}) ورقم الطلب هو: {order_id}"
+        wa_link = f"https://wa.me/{wa_number}?text={requests.utils.quote(wa_message)}"
+        
+        # 3. إظهار النتيجة للزبون مع زر التأكيد
+        st.success(f"عاشت إيدك! طلبك وصل للإيميل برقم: {order_id}")
+        st.markdown(f"""
+            <div style="text-align: center; background: #1e293b; padding: 15px; border-radius: 10px; border: 1px solid #25d366;">
+                <p style="color: white;">لضمان سرعة التنفيذ، يرجى تأكيد الطلب عبر الواتساب:</p>
+                <a href="{wa_link}" target="_blank" style="background-color: #25d366; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; font-weight: bold;">
+                     تأكيد الطلب عبر الواتساب ✅
+                </a>
+            </div>
+        """, unsafe_allow_html=True)
+    else:
+        st.error("يرجى ملء الاسم ورقم الهاتف.")
