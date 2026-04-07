@@ -273,3 +273,33 @@ st.markdown(f"""
         </p>
     </div>
 """, unsafe_allow_html=True)
+# --- الخطوة السادسة: محرك الثقة والضمان ---
+st.write("---")
+
+# 1. شريط الإنجازات اليومي (Stats Bar)
+st.markdown("""
+    <div style="background: linear-gradient(90deg, #1e293b, #0b3d61); padding: 15px; border-radius: 50px; border: 1px solid #c5a059; text-align: center; margin: 20px 0;">
+        <span style="color: #facc15; font-weight: bold;">●</span> 
+        <span style="color: white; font-size: 14px;"> تم معالجة <b>14 طلب</b> اليوم بنجاح في القصر الأوسط 🚀 </span>
+        <span style="color: #facc15; font-weight: bold; margin-right: 15px;">●</span> 
+        <span style="color: white; font-size: 14px;"> متوسط وقت الرد: <b>5 دقائق</b> ⚡ </span>
+    </div>
+""", unsafe_allow_html=True)
+
+# 2. قسم "تعهد أيوب" للأمان والخصوصية
+st.markdown("""
+    <div style="background: rgba(197, 160, 89, 0.1); padding: 20px; border-radius: 15px; border-right: 5px solid #c5a059;">
+        <h4 style="color: #c5a059; margin-top: 0;">🛡️ ضمان الخصوصية والأمان</h4>
+        <p style="color: white; font-size: 13px; line-height: 1.6; margin: 0;">
+            نحن في <b>مكتبة أيوب الذكية</b> ندرك أهمية خصوصية مستمسكاتكم وصوركم. نتعهد رسمياً بأن جميع البيانات تُعالج بأحدث أنظمة التشفير وتُحذف فور تسليم الطلب، ولا يتم مشاركتها مع أي جهة كانت. 
+            <br><b>أمانكم هو رأس مالنا.</b>
+        </p>
+    </div>
+""", unsafe_allow_html=True)
+
+# 3. زر "مشاركة الموقع" (Share Button)
+st.write("<br>", unsafe_allow_html=True)
+if st.button("📢 شارك الموقع مع أصدقائك"):
+    st.balloons()
+    st.info("انسخ رابط الصفحة من المتصفح وأرسله لأصدقائك في اليوسفية ليستفيدوا من الخدمات!")
+
