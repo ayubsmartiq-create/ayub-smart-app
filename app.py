@@ -228,3 +228,33 @@ if submit:
         """, unsafe_allow_html=True)
     else:
         st.error("يرجى ملء الاسم ورقم الهاتف.")
+# تأكد من إضافة هذا التعديل في قسم الإرسال (Submit)
+if submit:
+    if name and phone:
+        order_id = f"AY-{random.randint(1000, 9999)}"
+        
+        # تحضير البيانات للإرسال (بما فيها الملف المرفق)
+        files = {}
+        if uploaded_file is not None:
+            files = {"upload": (uploaded_file.name, uploaded_file.getvalue())}
+        
+        payload = {
+            "رقم الطلب": order_id,
+            "الاسم": name,
+            "الهاتف": phone,
+            "الخدمة": service,
+            "التفاصيل": details
+        }
+        
+        # إرسال البيانات مع الملف إلى Formspree
+        response = requests.post("https://formspree.io/f/xvzvdjzq", data=payload, files=files)
+        
+        if response.status_code == 200:
+            st.success(f"✅ تم استلام طلبك بنجاح! رقم الطلب هو: {order_id}")
+            st.balloons() # حركة احتفالية بسيطة
+            
+            # رابط الواتساب مع رقم الطلب
+            wa_msg = f"مرحباً أيوب، قدمت طلب جديد ورقم الطلب هو: {order_id}"
+            st.markdown(f'<a href="https://wa.me/96477XXXXXXXX?text={wa_msg}" target="_blank" style="display: block; text-align: center; background: #25d366; color: white; padding: 15px; border-radius: 10px; text-decoration: none; font-weight: bold;">تأكيد الطلب وإرسال المرفقات عبر الواتساب ✅</a>', unsafe_allow_html=True)
+        else:
+            st.error("فشل الإرسال، تأكد من اتصال الإنترنت.")
