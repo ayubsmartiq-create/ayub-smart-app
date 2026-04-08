@@ -93,3 +93,83 @@ with col3:
             <p>• سحب وإيداع زين كاش<br>• تحويل أموال للمحافظات<br>• شحن بطاقات ألعاب<br>• دفع فواتير وخدمات</p>
         </div>
     """, unsafe_allow_html=True)
+import random # تأكد من وجود هذا السطر في أعلى الملف مع streamlit
+
+# --- 5. إعدادات رقم الواتساب ورقم الطلب ---
+# ضع رقمك هنا بالصيغة الدولية (بدون أصفار وبدون +)
+MY_WHATSAPP = "9647739778877" 
+
+st.write("---") # خط فاصل للتنظيم
+st.markdown('<h2 style="color: #c5a059; text-align: center;">📝 قسم حجز الطلبات</h2>', unsafe_allow_html=True)
+
+# بداية حاوية الاستمارة
+with st.container():
+    # تصميم إطار خارجي للاستمارة
+    st.markdown('<div style="background: #1e293b; padding: 30px; border-radius: 20px; border: 1px solid #c5a059;">', unsafe_allow_html=True)
+    
+    with st.form("order_form", clear_on_submit=False):
+        # تقسيم المدخلات لصفوف
+        col_name, col_phone = st.columns(2)
+        
+        with col_name:
+            u_name = st.text_input("👤 الاسم الثلاثي", placeholder="اكتب اسمك هنا...")
+        
+        with col_phone:
+            u_phone = st.text_input("📞 رقم التواصل (واتساب)", placeholder="07XXXXXXXXX")
+        
+        # قائمة الخدمات مع خيار "أخرى"
+        service_list = [
+            "اختر الخدمة...", 
+            "استنساخ وطباعة", 
+            "تصميم CV احترافي", 
+            "مونتاج فيديو (CapCut)", 
+            "معاملات زين كاش", 
+            "تصميم لوغو / هوية", 
+            "أخرى (اذكرها في التفاصيل)"
+        ]
+        u_service = st.selectbox("🎯 نوع الخدمة المطلوبة", service_list)
+        
+        # مربع التفاصيل
+        u_details = st.text_area("📄 تفاصيل إضافية عن طلبك", placeholder="اشرح لنا ما تحتاجه بالضبط...")
+        
+        # زر الإرسال
+        submit_btn = st.form_submit_button("توليد رقم الطلب وإرسال 🚀")
+
+        if submit_btn:
+            if u_name and u_phone and u_service != "اختر الخدمة...":
+                # توليد رقم طلب مميز يبدأ بـ AY (اختصار أيوب)
+                order_number = f"AY-{random.randint(1000, 9999)}"
+                
+                # إظهار رسالة نجاح للزبون
+                st.success(f"تم استلام بياناتك بنجاح يا {u_name}!")
+                
+                # عرض رقم الطلب بشكل بارز وفخم
+                st.markdown(f"""
+                    <div style="background: #0f172a; padding: 20px; border-radius: 15px; border: 2px dashed #c5a059; text-align: center; margin: 20px 0;">
+                        <h3 style="color: #facc15; margin: 0;">رقم طلبك هو: {order_number}</h3>
+                        <p style="color: white; font-size: 14px; margin-top: 10px;">يرجى تزويدنا بهذا الرقم عند المراجعة</p>
+                    </div>
+                """, unsafe_allow_html=True)
+                
+                # تحضير رسالة الواتساب
+                wa_text = f"طلب جديد من الموقع 🦅%0a%0a" \
+                          f"🔢 رقم الطلب: {order_number}%0a" \
+                          f"👤 الأسم: {u_name}%0a" \
+                          f"🎯 الخدمة: {u_service}%0a" \
+                          f"📄 التفاصيل: {u_details}%0a" \
+                          f"📞 رقم التواصل: {u_phone}"
+                
+                wa_link = f"https://wa.me/{MY_WHATSAPP}?text={wa_text}"
+                
+                # زر الانتقال للواتساب لتأكيد الطلب
+                st.markdown(f"""
+                    <a href="{wa_link}" target="_blank" style="text-decoration: none;">
+                        <div style="background-color: #25d366; color: white; padding: 15px; border-radius: 12px; text-align: center; font-weight: bold; font-size: 18px;">
+                            تأكيد الطلب عبر واتساب الآن ✅
+                        </div>
+                    </a>
+                """, unsafe_allow_html=True)
+            else:
+                st.error("عذراً.. يرجى ملء الاسم، الرقم، واختيار نوع الخدمة.")
+
+    st.markdown('</div>', unsafe_allow_html=True)
