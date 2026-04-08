@@ -5,40 +5,45 @@ st.set_page_config(page_title="مكتبة أيوب هاني الذكية", page_
 
 # --- 2. تصميم الألوان والهوية (CSS) ---
 st.markdown("""
-    <style>
+      <style>
     @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap');
     
-    /* جعل الخط عربي والاتجاه من اليمين */
     html, body, [class*="css"], .stApp {
         font-family: 'Cairo', sans-serif !important;
         direction: rtl !important;
         text-align: right !important;
-        background-color: #0f172a !important; /* كحلي ملكي عميق */
+        background-color: #0f172a !important;
     }
 
-    /* الكتابة العامة بيضاء صافية */
     p, h1, h2, h3, h4, span, label, li {
         color: #ffffff !important;
     }
 
-    /* ميزة ذكية: الكتابة داخل المربعات (Input) لونها ذهبي لتتميز عن النص الأبيض */
-    input, textarea, select, div[data-baseweb="select"] > div {
+    /* تعديل المربعات والقوائم المنسدلة (الحل الجديد) */
+    div[data-baseweb="select"] > div, input, textarea {
         background-color: #1e293b !important;
-        color: #facc15 !important; /* ذهبي للمدخلات */
+        color: #facc15 !important; 
         border: 2px solid #c5a059 !important;
         border-radius: 12px !important;
     }
 
-    /* تصميم مقدمة الموقع (الرأس) */
+    /* تلوين الخيارات داخل القائمة المنسدلة حتى لا تظهر بيضاء */
+    div[role="listbox"] ul, div[role="listbox"] li {
+        background-color: #1e293b !important;
+        color: #ffffff !important;
+    }
+
     .header-box {
         background: linear-gradient(135deg, #0b3d61 0%, #1e293b 100%);
         padding: 40px;
         border-radius: 25px;
         border-right: 10px solid #c5a059;
         text-align: center;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         margin-bottom: 40px;
     }
+    </style>
+""", unsafe_allow_html=True)
+
 
     /* تصميم كروت الخدمات */
     .service-card {
