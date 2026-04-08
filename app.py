@@ -1,105 +1,103 @@
 import streamlit as st
-import random
-import datetime
 
-# --- 1. معلومات المكتبة الأساسية ---
-# تأكد من وضع رقمك هنا بدلاً من الأصفار
-MY_WHATSAPP = "9647700000000" 
-
-# --- 2. إعدادات المتصفح ---
+# --- 1. إعدادات المتصفح الأساسية ---
 st.set_page_config(page_title="مكتبة أيوب هاني الذكية", page_icon="🦅", layout="wide")
 
-# --- 3. تصميم الألوان والهوية (CSS المطور) ---
+# --- 2. هندسة التصميم والألوان (CSS) ---
 st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap');
     
+    /* الخلفية العامة والنصوص */
     html, body, [class*="css"], .stApp {
         font-family: 'Cairo', sans-serif !important;
         direction: rtl !important;
         text-align: right !important;
-        background-color: #0f172a !important;
+        background-color: #0f172a !important; /* لون كحلي ملكي عميق */
     }
 
-    /* الكتابة العامة بيضاء */
+    /* النصوص العامة باللون الأبيض الصافي */
     p, h1, h2, h3, h4, span, label, li {
         color: #ffffff !important;
     }
 
-    /* تعديل المربعات والقوائم المنسدلة (لحل مشكلة اللون الأبيض) */
+    /* --- تمييز المربعات والقوائم باحترافية --- */
+    /* جعل المربعات بلون أغمق قليلاً مع إطار ذهبي */
     div[data-baseweb="select"] > div, input, textarea {
-        background-color: #1e293b !important;
-        color: #facc15 !important; 
+        background-color: #1e293b !important; 
+        color: #facc15 !important; /* الكتابة داخل المربع بلون أصفر ذهبي ساطع */
         border: 2px solid #c5a059 !important;
         border-radius: 12px !important;
     }
 
-    /* تلوين النص داخل قائمة الخيارات نفسها */
+    /* حل مشكلة القائمة المنسدلة (حتى لا تظهر بيضاء) */
     div[role="listbox"] ul, div[role="listbox"] li {
         background-color: #1e293b !important;
         color: #ffffff !important;
     }
 
+    /* تصميم رأس الصفحة (Header) */
     .header-box {
         background: linear-gradient(135deg, #0b3d61 0%, #1e293b 100%);
-        padding: 40px;
-        border-radius: 25px;
-        border-right: 10px solid #c5a059;
+        padding: 45px;
+        border-radius: 30px;
+        border-right: 12px solid #c5a059;
         text-align: center;
-        margin-bottom: 40px;
+        box-shadow: 0 15px 35px rgba(0,0,0,0.6);
+        margin-bottom: 50px;
     }
 
+    /* تصميم كروت الخدمات */
     .service-card {
         background: #1e293b;
-        padding: 25px;
+        padding: 30px;
         border-radius: 20px;
-        border-bottom: 4px solid #c5a059;
+        border-bottom: 5px solid #c5a059;
+        transition: 0.4s ease-in-out;
         text-align: center;
         height: 100%;
+    }
+    .service-card:hover {
+        transform: translateY(-10px);
+        border-bottom: 5px solid #facc15;
+        box-shadow: 0 10px 20px rgba(197, 160, 89, 0.2);
     }
     </style>
 """, unsafe_allow_html=True)
 
-# --- 4. واجهة الموقع ---
+# --- 3. عرض مقدمة الموقع الفخمة ---
 st.markdown("""
     <div class="header-box">
-        <h1 style="color: #c5a059 !important; font-weight: 900; font-size: 42px;">🦅 مكتبة أيوب هاني الذكية</h1>
-        <p style="font-size: 20px;">بوابتك الرقمية للمونتاج والخدمات المكتبية في القصر الأوسط</p>
+        <h1 style="color: #c5a059 !important; font-weight: 900; font-size: 45px; margin-bottom: 10px;">🦅 مكتبة أيوب هاني الذكية</h1>
+        <p style="font-size: 22px; color: #cbd5e1 !important; font-weight: 700;">المونتاج الاحترافي والخدمات السريعة | اليوسفية - القصر الأوسط</p>
     </div>
 """, unsafe_allow_html=True)
 
-# --- 5. قسم الخدمات ---
+# --- 4. عرض الأقسام (الخدمات) ---
 st.write("### 🛠️ خدماتنا المتميزة")
-c1, c2, c3 = st.columns(3)
 
-with c1:
-    st.markdown('<div class="service-card"><h3 style="color: #c5a059;">📂 مكتبية</h3><p>• استنساخ وطباعة<br>• تصميم CV ملكي<br>• تقديم تعيينات</p></div>', unsafe_allow_html=True)
-with c2:
-    st.markdown('<div class="service-card"><h3 style="color: #c5a059;">🎬 مونتاج</h3><p>• فيديوهات CapCut<br>• تصميم لوغوهات<br>• هويات بصرية</p></div>', unsafe_allow_html=True)
-with c3:
-    st.markdown('<div class="service-card"><h3 style="color: #c5a059;">💰 مالي</h3><p>• زين كاش<br>• تحويل أموال<br>• شحن ألعاب</p></div>', unsafe_allow_html=True)
+col1, col2, col3 = st.columns(3)
 
-# --- 6. استمارة الطلب ---
-st.write("---")
-with st.form("order_form"):
-    col_a, col_b = st.columns(2)
-    with col_a:
-        u_name = st.text_input("👤 الاسم الثلاثي")
-    with col_b:
-        u_phone = st.text_input("📞 رقم الواتساب")
-    
-    u_service = st.selectbox("🎯 نوع الخدمة", ["استنساخ", "تصميم CV", "مونتاج فيديو", "زين كاش", "أخرى"])
-    u_details = st.text_area("📄 تفاصيل الطلب")
-    
-    submit = st.form_submit_button("إرسال الطلب وحجز رقم 🚀")
+with col1:
+    st.markdown("""
+        <div class="service-card">
+            <h3 style="color: #c5a059; font-weight: 900;">📂 مكتبية</h3>
+            <p>• استنساخ وطباعة ملونة<br>• تصميم CV احترافي<br>• تقديم تعيينات حكومية<br>• تحويل ملفات PDF</p>
+        </div>
+    """, unsafe_allow_html=True)
 
-    if submit:
-        if u_name and u_phone:
-            order_id = f"AY-{random.randint(1000, 9999)}"
-            st.success(f"تم استلام طلبك يا {u_name}!")
-            st.info(f"رقم الطلب: {order_id}")
-            
-            wa_text = f"طلب جديد!%0aرقم الطلب: {order_id}%0aالأسم: {u_name}%0aالخدمة: {u_service}"
-            wa_url = f"https://wa.me/{MY_WHATSAPP}?text={wa_text}"
-            
-            st.markdown(f'<a href="{wa_url}" target="_blank"><div style="background:#25d366; color:white; padding:15px; border-radius:10px; text-align:center; font-weight:bold;">تأكيد عبر واتساب ✅</div></a>', unsafe_allow_html=True)
+with col2:
+    st.markdown("""
+        <div class="service-card">
+            <h3 style="color: #c5a059; font-weight: 900;">🎬 مونتاج وإبداع</h3>
+            <p>• مونتاج CapCut Pro<br>• تصميم لوغوهات وهويات<br>• تصميم منيو وكارتات<br>• تعديل صور بالذكاء الاصطناعي</p>
+        </div>
+    """, unsafe_allow_html=True)
+
+with col3:
+    st.markdown("""
+        <div class="service-card">
+            <h3 style="color: #c5a059; font-weight: 900;">💰 مالي وألعاب</h3>
+            <p>• سحب وإيداع زين كاش<br>• تحويل أموال فوري<br>• شحن بطاقات ألعاب<br>• دفع فواتير وخدمات</p>
+        </div>
+    """, unsafe_allow_html=True)
