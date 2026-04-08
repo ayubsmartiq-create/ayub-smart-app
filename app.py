@@ -161,3 +161,32 @@ with st.container():
                 st.error("عذراً، يرجى ملء الحقول الأساسية (الاسم والرقم) لإكمال الطلب.")
 
     st.markdown('</div>', unsafe_allow_html=True)
+st.write("---")
+st.markdown('<h2 style="color: #c5a059; text-align: center;">🔍 تتبع حالة طلبك</h2>', unsafe_allow_html=True)
+
+# تصميم مربع التتبع
+with st.container():
+    st.markdown('<div style="background: #0f172a; padding: 25px; border-radius: 20px; border: 1px solid #c5a059;">', unsafe_allow_html=True)
+    
+    # حقل إدخال رقم الطلب
+    search_id = st.text_input("ادخل رقم الطلب الخاص بك (مثال: AY-1234)", placeholder="AY-XXXX")
+    
+    track_btn = st.button("بحث عن حالة الطلب 🔎")
+
+    if track_btn:
+        if search_id:
+            # هنا نقوم بمحاكاة ذكية للبحث (لاحقاً يمكن ربطها بقاعدة بيانات)
+            # حالياً سنظهر رسالة احترافية للزبون
+            st.markdown(f"""
+                <div style="background: #1e293b; padding: 20px; border-radius: 15px; border-right: 5px solid #facc15; margin-top: 15px;">
+                    <h4 style="color: #facc15 !important; margin: 0;">نتائج البحث عن: {search_id}</h4>
+                    <hr style="border-color: #c5a059;">
+                    <p style="color: white !important;">📍 <b>الحالة الحالية:</b> <span style="color: #25d366;">قيد المعالجة (In Progress)</span></p>
+                    <p style="color: white !important;">📅 <b>التحديث الأخير:</b> {datetime.datetime.now().strftime("%Y-%m-%d")}</p>
+                    <p style="color: #cbd5e1 !important; font-size: 14px;">سيتم إشعارك فور اكتمال العمل وتسليمه.</p>
+                </div>
+            """, unsafe_allow_html=True)
+        else:
+            st.warning("يرجى إدخال رقم الطلب أولاً.")
+
+    st.markdown('</div>', unsafe_allow_html=True)
