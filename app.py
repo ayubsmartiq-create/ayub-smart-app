@@ -1,15 +1,9 @@
 import streamlit as st
-import random
-import datetime
 
-# --- 1. معلومات المكتبة الأساسية ---
-# استبدل الأصفار برقمك الفعلي (بدون + وبدون أصفار بالبداية)
-MY_WHATSAPP = "9647700000000" 
-
-# --- 2. إعدادات الصفحة ---
+# --- 1. الإعدادات الأساسية للمتصفح ---
 st.set_page_config(page_title="مكتبة أيوب هاني الذكية", page_icon="🦅", layout="wide")
 
-# --- 3. تصميم الألوان والهوية (CSS) ---
+# --- 2. تصميم الألوان والهوية (CSS) ---
 st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap');
@@ -19,7 +13,7 @@ st.markdown("""
         font-family: 'Cairo', sans-serif !important;
         direction: rtl !important;
         text-align: right !important;
-        background-color: #0f172a !important; /* كحلي ملكي */
+        background-color: #0f172a !important; /* كحلي ملكي عميق */
     }
 
     /* الكتابة العامة بيضاء صافية */
@@ -27,7 +21,7 @@ st.markdown("""
         color: #ffffff !important;
     }
 
-    /* ميزة ذكية: الكتابة داخل المربعات لونها ذهبي لتتميز */
+    /* ميزة ذكية: الكتابة داخل المربعات (Input) لونها ذهبي لتتميز عن النص الأبيض */
     input, textarea, select, div[data-baseweb="select"] > div {
         background-color: #1e293b !important;
         color: #facc15 !important; /* ذهبي للمدخلات */
@@ -42,18 +36,60 @@ st.markdown("""
         border-radius: 25px;
         border-right: 10px solid #c5a059;
         text-align: center;
-        box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-        margin-bottom: 30px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        margin-bottom: 40px;
+    }
+
+    /* تصميم كروت الخدمات */
+    .service-card {
+        background: #1e293b;
+        padding: 25px;
+        border-radius: 20px;
+        border-bottom: 4px solid #c5a059;
+        transition: 0.4s;
+        text-align: center;
+        height: 100%;
+    }
+    .service-card:hover {
+        transform: translateY(-10px);
+        border-bottom: 4px solid #facc15;
     }
     </style>
 """, unsafe_allow_html=True)
 
-# --- 4. واجهة الموقع (المقدمة) ---
+# --- 3. عرض مقدمة الموقع ---
 st.markdown("""
     <div class="header-box">
-        <h1 style="color: #c5a059 !important; font-weight: 900; font-size: 40px;">🦅 مكتبة أيوب هاني الذكية</h1>
-        <p style="font-size: 18px; color: #cbd5e1 !important;">خيارك الأول للمونتاج الاحترافي والخدمات المكتبية | القصر الأوسط</p>
+        <h1 style="color: #c5a059 !important; font-weight: 900; font-size: 42px;">🦅 مكتبة أيوب هاني الذكية</h1>
+        <p style="font-size: 20px; color: #cbd5e1 !important;">بوابتك الرقمية للمونتاج والخدمات المكتبية في القصر الأوسط</p>
     </div>
 """, unsafe_allow_html=True)
 
-st.info("نظام التشغيل الآن جاهز.. بانتظار إضافة الأقسام.")
+# --- 4. قسم عرض الخدمات ---
+st.write("### 🛠️ خدماتنا المتميزة")
+
+col1, col2, col3 = st.columns(3)
+
+with col1:
+    st.markdown("""
+        <div class="service-card">
+            <h3 style="color: #c5a059;">📂 خدمات مكتبية</h3>
+            <p>• استنساخ وطباعة ملونة<br>• تصميم CV احترافي<br>• تقديم على التعيينات<br>• تحويل ملفات PDF</p>
+        </div>
+    """, unsafe_allow_html=True)
+
+with col2:
+    st.markdown("""
+        <div class="service-card">
+            <h3 style="color: #c5a059;">🎬 مونتاج وإبداع</h3>
+            <p>• مونتاج CapCut Pro<br>• تصميم لوغوهات وهويات<br>• تصميم منيو وكارتات<br>• تعديل صور بالذكاء الاصطناعي</p>
+        </div>
+    """, unsafe_allow_html=True)
+
+with col3:
+    st.markdown("""
+        <div class="service-card">
+            <h3 style="color: #c5a059;">💰 معاملات مالية</h3>
+            <p>• سحب وإيداع زين كاش<br>• تحويل أموال للمحافظات<br>• شحن بطاقات ألعاب<br>• دفع فواتير وخدمات</p>
+        </div>
+    """, unsafe_allow_html=True)
