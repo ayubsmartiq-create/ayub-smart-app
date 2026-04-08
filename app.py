@@ -101,3 +101,63 @@ with col3:
             <p>• سحب وإيداع زين كاش<br>• تحويل أموال فوري<br>• شحن بطاقات ألعاب<br>• دفع فواتير وخدمات</p>
         </div>
     """, unsafe_allow_html=True)
+import random # تأكد أن هذا السطر موجود في أعلى الملف تماماً
+
+# --- 5. رقم الواتساب الخاص بك ---
+MY_WHATSAPP = "9647739778877" # ضع رقمك هنا
+
+st.write("---")
+st.markdown('<h2 style="color: #c5a059; text-align: center;">📝 قسم حجز الطلبات</h2>', unsafe_allow_html=True)
+
+# تصميم حاوية الاستمارة
+with st.container():
+    st.markdown('<div style="background: #1e293b; padding: 30px; border-radius: 20px; border: 1px solid #c5a059;">', unsafe_allow_html=True)
+    
+    with st.form("main_order_form", clear_on_submit=False):
+        col_name, col_phone = st.columns(2)
+        with col_name:
+            u_name = st.text_input("👤 الاسم الثلاثي", placeholder="اكتب اسمك هنا...")
+        with col_phone:
+            u_phone = st.text_input("📞 رقم الواتساب", placeholder="07XXXXXXXXX")
+        
+        u_service = st.selectbox("🎯 نوع الخدمة", ["استنساخ", "تصميم CV", "مونتاج فيديو", "زين كاش", "أخرى"])
+        u_details = st.text_area("📄 تفاصيل الطلب", placeholder="اشرح لنا ما تحتاجه...")
+        
+        # زر الإرسال بتصميم مميز
+        submit_btn = st.form_submit_button("إرسال الطلب وحجز رقم 🚀")
+
+        if submit_btn:
+            if u_name and u_phone:
+                # توليد رقم طلب آلي
+                order_id = f"AY-{random.randint(1000, 9999)}"
+                
+                # --- الرسالة المنبثقة بتصميم وألوان خاصة جداً ---
+                st.markdown(f"""
+                    <div style="background: #0f172a; padding: 25px; border-radius: 15px; border: 2px dashed #facc15; text-align: center; margin-top: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.4);">
+                        <h2 style="color: #25d366 !important; margin-bottom: 10px;">✅ تم استلام بياناتك بنجاح!</h2>
+                        <p style="color: #ffffff !important; font-size: 18px;">أهلاً بك يا <b>{u_name}</b>، شكراً لثقتك بنا.</p>
+                        <div style="background: #1e293b; padding: 10px; border-radius: 10px; display: inline-block; margin: 10px 0;">
+                            <span style="color: #facc15 !important; font-size: 24px; font-weight: bold;">رقم الطلب: {order_id}</span>
+                        </div>
+                        <p style="color: #cbd5e1 !important; font-size: 14px;">يرجى الضغط على الزر أدناه لتأكيد الطلب عبر الواتساب</p>
+                    </div>
+                """, unsafe_allow_html=True)
+                
+                # تحضير رسالة الواتساب
+                wa_msg = f"طلب جديد من الموقع 🦅%0a🔢 رقم الطلب: {order_id}%0a👤 الاسم: {u_name}%0a🎯 الخدمة: {u_service}%0a📄 التفاصيل: {u_details}"
+                wa_url = f"https://wa.me/{MY_WHATSAPP}?text={wa_msg}"
+                
+                # زر الواتساب الأخضر الاحترافي
+                st.markdown(f"""
+                    <div style="text-align: center; margin-top: 15px;">
+                        <a href="{wa_url}" target="_blank" style="text-decoration: none;">
+                            <button style="background-color: #25d366; color: white; padding: 15px 40px; border-radius: 12px; border: none; font-weight: bold; font-size: 20px; cursor: pointer; width: 100%;">
+                                تأكيد الطلب عبر واتساب الآن 🟢
+                            </button>
+                        </a>
+                    </div>
+                """, unsafe_allow_html=True)
+            else:
+                st.error("عذراً، يرجى ملء الحقول الأساسية (الاسم والرقم) لإكمال الطلب.")
+
+    st.markdown('</div>', unsafe_allow_html=True)
