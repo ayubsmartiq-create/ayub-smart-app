@@ -404,3 +404,28 @@ st.markdown("""
         </div>
     </div>
 """, unsafe_allow_html=True)
+# --- تكملة الخطوة 11: نظام الاستلام المباشر ---
+st.write("---")
+st.markdown('<h3 style="color: #c5a059; text-align: center;">📥 بوابة استلام الطلبات الجاهزة</h3>', unsafe_allow_html=True)
+
+# مربع البحث عن الملف برقم الكود
+order_number = st.text_input("أدخل كود استلام ملفك (مثلاً: 2024)", placeholder="اكتب الكود هنا...")
+
+if order_number:
+    # هذا الكود يبحث عن ملف بصيغة PDF داخل مجلد اسمه orders
+    target_file = f"orders/{order_number}.pdf"
+    
+    if os.path.exists(target_file):
+        st.success(f"🎉 طلبك جاهز يا بطل! كود: {order_number}")
+        with open(target_file, "rb") as f:
+            st.download_button(
+                label="📥 اضغط هنا لتحميل ملفك فوراً",
+                data=f,
+                file_name=f"Ayub_Office_Order_{order_number}.pdf",
+                mime="application/pdf"
+            )
+    else:
+        st.info("⏳ أيوب دا يشتغل على طلبك حالياً.. من يكمل راح تكدر تحمله من هنا مباشرة.")
+
+# لمسة أخيرة للأمان (ثابتة في النهاية)
+st.warning("⚠️ ملاحظة: جميع الملفات تُحذف تلقائياً بعد 24 ساعة لضمان خصوصيتك.")
