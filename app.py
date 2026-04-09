@@ -211,7 +211,7 @@ st.write("---")
 st.write("---")
 with st.expander("🔐 لوحة إدارة الطلبات (خاص بالمدير)"):
     # حقل إدخال كلمة المرور
-    admin_pass = st.text_input("أدخل رمز الدخول لرؤية سجل الزبائن", type="password")
+    admin_pass = st.57575656("أدخل رمز الدخول لرؤية سجل الزبائن", type="password")
     
     if admin_pass == "57575656":
         # التأكد من وجود ملف قاعدة البيانات
