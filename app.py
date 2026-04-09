@@ -110,3 +110,43 @@ with st.container():
         submit_btn = st.form_submit_button("إرسال الطلب وحفظه")
     
     st.markdown('</div>', unsafe_allow_html=True)
+    if submit_btn:
+        if u_name and u_phone: # التأكد أن الزبون لم يترك الاسم والرقم فارغين
+            
+            # 1. توليد رقم طلب مميز (حتى تميز زبائنك)
+            order_id = f"AY-{random.randint(1000, 9999)}"
+            
+            # 2. تحديد الوقت الحالي (تاريخ وساعة الطلب)
+            current_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
+
+            # 3. تجميع المعلومات في "سطر واحد" (الجدول)
+            new_entry = {
+                "الوقت": [current_time],
+                "رقم الطلب": [order_id],
+                "الاسم": [u_name],
+                "الهاتف": [u_phone],
+                "الخدمة": [u_service],
+                "التفاصيل": [u_details],
+                "الحالة": ["قيد الانتظار"]
+            }
+
+            # 4. تحويل المعلومات إلى شكل جدول (DataFrame)
+            df_new = pd.DataFrame(new_entry)
+
+            # 5. تحديد مكان الإرسال (ملف الإكسل CSV)
+            file_name = "orders_database.csv"
+
+            # 6. عملية الحفظ الذكية
+            if not os.path.isfile(file_name):
+                # إذا الملف مو موجود، أنشئه وحط العناوين
+                df_new.to_csv(file_name, index=False, encoding='utf-8-sig')
+            else:
+                # إذا الملف موجود، ضيف السطر الجديد بالأخير بدون ما تمسح القديم
+                df_new.to_csv(file_name, mode='a', header=False, index=False, encoding='utf-8-sig')
+
+            # 7. إبلاغ الزبون بالنجاح
+            st.success(f"تم إرسال طلبك بنجاح يا {u_name}! رقم طلبك هو: {order_id}")
+            
+        else:
+            # إذا نسى يكتب اسمه أو رقمه
+            st.warning("عذراً، يرجى كتابة الاسم ورقم الهاتف لإكمال الطلب.")
