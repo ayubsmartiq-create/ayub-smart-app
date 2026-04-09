@@ -8,7 +8,7 @@ import random
 st.set_page_config(page_title="مكتبة أيوب هاني الذكية", page_icon="🏆", layout="centered")
 
 # --- 2. روابط ثابتة (تأكد من رقم الواتساب) ---
-MY_WHATSAPP = "9647800000000" 
+MY_WHATSAPP = "9647739778877" 
 
 # --- 3. عزل الألوان والتصميم (CSS) لمنع التداخل ---
 st.markdown("""
