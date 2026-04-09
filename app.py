@@ -206,3 +206,18 @@ with st.container():
             st.info("خوش سؤال! بس ياريت توضح أكثر حتى أقدر أساعدك بدقة. تكدر تسألني عن (المونتاج، التصميم، الأسعار، أو الموقع).")
 
     st.markdown('</div>', unsafe_allow_html=True)
+st.write("---")
+# لوحة تحكم سرية لأيوب فقط
+with st.expander("🔐 لوحة إدارة الطلبات (لأصحاب الموقع فقط)"):
+    admin_pass = st.text_input("كلمة السر", type="password")
+    if admin_pass == "ayub2026": # تكدر تغير الباسورد براحتك
+        if os.path.exists("orders_database.csv"):
+            df_view = pd.read_csv("orders_database.csv")
+            st.write("هذه هي الطلبات المسجلة حالياً:")
+            st.dataframe(df_view) # يعرض لك الجدول كدامي بموقعك
+            
+            # زر لتحميل الملف
+            with open("orders_database.csv", "rb") as f:
+                st.download_button("📥 تحميل ملف الإكسل الكامل", f, file_name="orders.csv")
+        else:
+            st.warning("ماكو أي طلبات مسجلة لحد الآن.")
