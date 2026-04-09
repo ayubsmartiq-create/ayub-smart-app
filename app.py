@@ -129,6 +129,7 @@ with st.container():
         if submit_btn:
             if u_name and u_phone:
                 # توليد رقم طلب آلي
+        
         # --- بداية الكود المصلح من سطر 132 ---
         import pandas as pd
         import os
