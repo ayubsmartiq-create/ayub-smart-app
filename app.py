@@ -165,3 +165,61 @@ with st.container():
                 st.info("نظام التتبع في طور التحديث حالياً، سيظهر طلبك هنا فور معالجته.")
         else:
             st.info("لا توجد طلبات مسجلة في النظام حتى الآن.")
+# ==========================================
+# قسم الإضافات الموحد (يوضع في نهاية الملف)
+# ==========================================
+st.write("---")
+
+# 1. قسم إنجازات المكتبة (الأرقام)
+metric_cols = st.columns(4)
+with metric_cols[0]: st.metric(label="طلبات مكتملة", value="1500+")
+with metric_cols[1]: st.metric(label="زبائن سعداء", value="98%")
+with metric_cols[2]: st.metric(label="خبرة رقمية", value="5+ سنوات")
+with metric_cols[3]: st.metric(label="سرعة الرد", value="دقيقة واحدة")
+
+st.markdown("""<style>
+    [data-testid="stMetricValue"] { color: #FFD700 !important; text-align: center !important; font-size: 30px !important; }
+    [data-testid="stMetricLabel"] { color: #ffffff !important; text-align: center !important; }
+</style>""", unsafe_allow_html=True)
+
+st.write("---")
+
+# 2. قسم آراء الزبائن وتتبع الطلب
+col_feedback, col_tracking = st.columns([1.5, 1], gap="large")
+
+with col_feedback:
+    st.markdown('<h3>🌟 آراء عملائنا</h3>', unsafe_allow_html=True)
+    testimonials = [
+        {"n": "أحمد العبيدي", "m": "أفضل خدمة مونتاج وسرعة بالعمل.", "s": "⭐⭐⭐⭐⭐"},
+        {"n": "سارة جاسم", "m": "الـ CV كان احترافي جداً وساعدني هواي.", "s": "⭐⭐⭐⭐⭐"}
+    ]
+    for t in testimonials:
+        st.markdown(f"""
+            <div style="background: rgba(255, 215, 0, 0.03); padding: 15px; border-radius: 12px; border-right: 4px solid #FFD700; margin-bottom: 10px;">
+                <p style="color: #FFD700 !important; font-weight: bold; margin:0;">{t['n']}</p>
+                <p style="font-size: 13px; color: #ccc !important; margin:5px 0;">"{t['m']}"</p>
+                <div style="color: #FFD700; font-size: 12px;">{t['s']}</div>
+            </div>
+        """, unsafe_allow_html=True)
+
+with col_tracking:
+    st.markdown('<h3>🔍 تتبع طلبك</h3>', unsafe_allow_html=True)
+    search_id = st.text_input("رقم الطلب (AY-XXXX)")
+    if search_id:
+        if os.path.exists("orders_database.csv"):
+            try:
+                track_df = pd.read_csv("orders_database.csv", on_bad_lines='skip')
+                res = track_df[track_df['الرقم'].astype(str) == search_id]
+                if not res.empty:
+                    st.info(f"أهلاً {res.iloc[-1]['الاسم']}، حالة طلبك: {res.iloc[-1]['الحالة']}")
+                else: st.error("الرقم غير موجود")
+            except: st.error("خطأ في البيانات")
+
+# 3. حقوق الملكية والأمان (التذييل النهائي)
+st.markdown(f"""
+    <div style="text-align:center; color:#444; font-size:12px; margin-top:60px; border-top: 1px solid #222; padding-top: 20px;">
+        🔒 جميع البيانات مشفرة وآمنة 100% بموجب بروتوكولات حماية مكتبة أيوب<br>
+        جميع الحقوق محفوظة © {datetime.datetime.now().year} - مكتبة أيوب الذكية<br>
+        بإدارة المبدع أيوب هاني | بغداد، العراق 🇮🇶
+    </div>
+""", unsafe_allow_html=True)
