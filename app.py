@@ -239,3 +239,36 @@ with st.expander("🔐 لوحة إدارة الطلبات (خاص بالمدير
             st.info("لم يتم إنشاء سجل طلبات بعد. سيظهر هنا بمجرد استلام أول طلب من الموقع.")
     elif admin_pass:
         st.error("الرمز الذي أدخلته غير صحيح!")
+# --- قسم فحص حالة الطلب للزبائن ---
+st.write("---")
+st.markdown('<h3 class="gold-title">🔍 الاستعلام عن طلبك</h3>', unsafe_allow_html=True)
+
+with st.container():
+    st.markdown('<div class="custom-box">', unsafe_allow_html=True)
+    
+    # حقل إدخال رقم الطلب
+    search_order = st.text_input("أدخل رقم الطلب الخاص بك (مثلاً: AY-1234)")
+    
+    if search_order:
+        if os.path.exists("orders_database.csv"):
+            try:
+                # قراءة السجل
+                df_search = pd.read_csv("orders_database.csv")
+                
+                # البحث عن الرقم داخل عمود "الرقم"
+                # تأكد أن اسم العمود في كود الحفظ هو "الرقم"
+                result = df_search[df_search['الرقم'].astype(str).str.contains(search_order)]
+                
+                if not result.empty:
+                    st.success(f"✅ تم العثور على طلبك يا {result.iloc[0]['الاسم']}")
+                    st.write(f"**نوع الخدمة:** {result.iloc[0]['الخدمة']}")
+                    st.write(f"**تاريخ التسجيل:** {result.iloc[0]['التاريخ']}")
+                    st.info("طلبك قيد المعالجة الآن، سيتم التواصل معك عبر الواتساب قريباً.")
+                else:
+                    st.error("❌ عذراً، هذا الرقم غير مسجل لدينا. تأكد من كتابة الرمز بشكل صحيح.")
+            except:
+                st.warning("نواجه مشكلة في الاتصال بقاعدة البيانات، جرب مرة أخرى لاحقاً.")
+        else:
+            st.info("لا توجد طلبات مسجلة في النظام حالياً.")
+            
+    st.markdown('</div>', unsafe_allow_html=True)
