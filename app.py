@@ -207,25 +207,3 @@ with st.container():
 
     st.markdown('</div>', unsafe_allow_html=True)
 st.write("---")
-# لوحة تحكم سرية لأيوب فقط
-with st.expander("🔐 لوحة إدارة الطلبات (لأصحاب الموقع فقط)"):
-    admin_pass = st.text_input("كلمة السر", type="password")
-    if admin_pass == "57575656": # تكدر تغير الباسورد براحتك
-                if os.path.exists("orders_database.csv"):
-            try:
-                # قراءة الملف مع التأكد من أنه ليس فارغاً
-                    df_view = pd.read_csv("orders_database.csv")
-                    if not df_view.empty:
-                    st.write("هذه هي الطلبات المسجلة حالياً:")
-                    st.dataframe(df_view)
-                    else:
-                    st.warning("الملف موجود ولكنه فارغ حالياً.")
-            except:
-                st.error("السجل قيد التحديث، جرب إرسال طلب جديد أولاً.")
-
-            
-            # زر لتحميل الملف
-            with open("orders_database.csv", "rb") as f:
-                st.download_button("📥 تحميل ملف الإكسل الكامل", f, file_name="orders.csv")
-        else:
-            st.warning("ماكو أي طلبات مسجلة لحد الآن.")
