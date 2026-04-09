@@ -150,32 +150,21 @@ with st.container():
         else:
             # إذا نسى يكتب اسمه أو رقمه
             st.warning("عذراً، يرجى كتابة الاسم ورقم الهاتف لإكمال الطلب.")
-            # --- تكملة كود الواتساب في نهاية عملية الإرسال ---
+            # --- كود الواتساب المصلح ---
+            MY_WHATSAPP = "9647739778877" # اكتب رقمك هنا بدون أصفار بالبداية
             
-            # 1. رقمك الحقيقي (اكتبه بدون أصفار بالبداية)
-            MY_NUMBER = "9647739778877" 
+            wa_msg = f"هلا أيوب، أنا الزبون {u_name}، سجلت طلب رقم: {order_id}"
+            # تحويل الرسالة لرابط يفهمه المتصفح
+            wa_url = f"https://wa.me/{MY_WHATSAPP}?text={wa_msg.replace(' ', '%20')}"
 
-            # 2. تجهيز الرسالة
-            wa_text = f"هلا أيوب، سجلت طلب جديد ✅%0a" \
-                      f"الاسم: {u_name}%0a" \
-                      f"رقم الطلب: {order_id}%0a" \
-                      f"الخدمة: {u_service}"
-
-            # 3. الرابط والزر
-            wa_link = f"https://wa.me/{MY_NUMBER}?text={wa_text}"
-            
             st.markdown(f"""
-                <a href="{wa_link}" target="_blank" style="text-decoration: none;">
-                    <div style="
-                        background-color: #25d366; 
-                        color: white; 
-                        padding: 15px; 
-                        border-radius: 12px; 
-                        text-align: center; 
-                        font-weight: bold;
-                        margin-top: 10px;
-                        cursor: pointer;">
-                        اضغط هنا لتأكيد طلبك عبر واتساب 🟢
-                    </div>
-                </a>
+                <div style="text-align: center;">
+                    <a href="{wa_url}" target="_blank" style="text-decoration: none;">
+                        <button style="background-color: #25d366; color: white; padding: 15px; border-radius: 10px; border: none; width: 100%; font-weight: bold; cursor: pointer;">
+                            تأكيد الطلب عبر واتساب الآن 🟢
+                        </button>
+                    </a>
+                </div>
             """, unsafe_allow_html=True)
+
+            
