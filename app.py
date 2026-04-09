@@ -3,24 +3,19 @@ import pandas as pd
 import os
 import datetime
 import random
-# إعدادات الصفحة
-st.set_page_config(page_title="مكتبة أيوب الذكية", layout="centered")
 
-# التصميم البرمجي (CSS)
+# 1. إعدادات الصفحة والتصميم (CSS)
+st.set_page_config(page_title="مكتبة أيوب هاني الذكية", layout="centered")
+
 st.markdown("""
     <style>
-    /* لون الخلفية الأساسية */
     .stApp { background-color: #0f172a; }
-
-    /* تنسيق العنوان الذهبي فوق المربعات */
     .gold-title { 
         color: #c5a059 !important; 
         text-align: right; 
         font-weight: bold;
         margin-bottom: 20px;
     }
-
-    /* تنسيق المربعات (الحاويات) */
     .custom-box {
         background-color: #1e293b; 
         padding: 20px; 
@@ -28,12 +23,13 @@ st.markdown("""
         border-right: 5px solid #c5a059;
         margin-bottom: 25px;
         text-align: right;
+        color: white;
     }
-
-    /* لون النص داخل المربعات */
     .box-text { color: #ffffff !important; }
     </style>
     """, unsafe_allow_html=True)
+
+# 2. العناوين والترحيب
 st.markdown('<h1 class="gold-title">🦅 مكتبة أيوب هاني الذكية</h1>', unsafe_allow_html=True)
 
 st.markdown("""
@@ -41,231 +37,87 @@ st.markdown("""
         <p class="box-text">أهلاً بك في منصتنا الإلكترونية. نحن هنا لنقدم لك أفضل خدمات المونتاج، التصميم، والخدمات المكتبية بأعلى جودة.</p>
     </div>
     """, unsafe_allow_html=True)
-# --- قسم الخدمات ---
-st.markdown('<h2 class="gold-title">🛠️ خدماتنا الاحترافية</h2>', unsafe_allow_html=True)
 
-# سنقوم بتقسيم الشاشة لعمودين حتى تظهر الخدمات بشكل أرتب
+# 3. قسم الخدمات
+st.markdown('<h2 class="gold-title">🛠️ خدماتنا الاحترافية</h2>', unsafe_allow_html=True)
 col1, col2 = st.columns(2)
 
 with col1:
-    st.markdown("""
-        <div class="custom-box">
-            <h3 style="color: #c5a059;">🎬 المونتاج</h3>
-            <p class="box-text">تعديل فيديوهات احترافي لصناع المحتوى (TikTok, Reels) مع إضافة ترجمة وانتقالات.</p>
-        </div>
-    """, unsafe_allow_html=True)
-
+    st.markdown('<div class="custom-box"><h3 style="color:#c5a059;">🎬 المونتاج</h3><p>تعديل فيديوهات TikTok و Reels باحترافية عالية.</p></div>', unsafe_allow_html=True)
 with col2:
-    st.markdown("""
-        <div class="custom-box">
-            <h3 style="color: #c5a059;">📄 الطباعة والبحوث</h3>
-            <p class="box-text">كتابة وتنسيق بحوث التخرج والتقارير المدرسية وتصميم السيرة الذاتية CV.</p>
-        </div>
-    """, unsafe_allow_html=True)
+    st.markdown('<div class="custom-box"><h3 style="color:#c5a059;">📄 البحوث</h3><p>كتابة وتنسيق بحوث التخرج والتقارير المدرسية.</p></div>', unsafe_allow_html=True)
 
-st.markdown("""
-    <div class="custom-box">
-        <h3 style="color: #c5a059;">🎨 التصميم الجرافيكي</h3>
-        <p class="box-text">تصميم شعارات (Logos)، هويات بصرية، وبوستات إعلانية احترافية للسوشيال ميديا.</p>
-    </div>
-""", unsafe_allow_html=True)
-st.write("---") # خط فاصل
-
-# عنوان الاستمارة بتصميم ملكي
-st.markdown('<h2 class="gold-title">📋 نموذج طلب خدمة احترافي</h2>', unsafe_allow_html=True)
-
-# تباين الألوان: سنضع الاستمارة داخل صندوق المعزول (custom-box)
+# 4. المساعد الذكي المطوّر
+st.markdown('<h2 class="gold-title">🤖 مساعد أيوب الذكي</h2>', unsafe_allow_html=True)
 with st.container():
     st.markdown('<div class="custom-box">', unsafe_allow_html=True)
-    
-    with st.form("professional_order_form"):
-        # 1. معلومات التواصل (تباين عالٍ: نصوص ذهبية فوق حقول غامقة)
-        st.markdown('<p style="color: #c5a059; font-weight: bold;">👤 معلومات العميل الأساسية</p>', unsafe_allow_html=True)
-        col_a, col_b = st.columns(2)
-        with col_a:
-            u_name = st.text_input("الاسم الكامل (الثلاثي)", placeholder="مثال: أيوب هاني جاسم")
-        with col_b:
-            u_phone = st.text_input("رقم الواتساب (للتواصل)", placeholder="9647XXXXXXXX")
+    user_input = st.text_input("سولف وياي.. أي شي ببالك عن المكتبة؟")
+    if user_input:
+        text = user_input.lower()
+        if any(word in text for word in ["هلا", "هلو", "مرحبا"]):
+            st.info("يا هلا بيك بنورك! بشنو أقدر أخدمك اليوم؟")
+        elif "سعر" in text or "بكم" in text:
+            st.info("أسعارنا تنافسية جداً، اترك طلبك بالاستمارة تحت وأبشر بالخير.")
+        elif "مونتاج" in text or "فيديو" in text:
+            st.info("أيوب خبير بمونتاج CapCut، نطلع لك فيديو عالمي!")
+        else:
+            st.info("خوش سؤال! تكدر تسألني عن المونتاج، الأسعار، أو موقعنا باليوسفية.")
+    st.markdown('</div>', unsafe_allow_html=True)
 
-        # 2. تفاصيل الخدمة
-        st.markdown('<p style="color: #c5a059; font-weight: bold;">🛠️ تفاصيل الطلب والدقة</p>', unsafe_allow_html=True)
-        u_service = st.selectbox("نوع الخدمة المطلوبة", 
-                                ["مونتاج فيديو (TikTok/Reels)", "تصميم شعار (Logo)", "كتابة بحوث وتقارير", "تصميم سيرة ذاتية (CV)", "خدمات أخرى"])
-        
-        u_urgency = st.select_slider("مدى استعجال الطلب", options=["عادي", "مستعجل", "طارئ (خلال ساعات)"])
-        
-        u_details = st.text_area("اشرح لنا تفاصيل طلبك بدقة (كلما زادت التفاصيل زادت الجودة)", height=150)
+# 5. استمارة الطلب وحفظ البيانات
+st.markdown('<h2 class="gold-title">📝 سجل طلبك الآن</h2>', unsafe_allow_html=True)
+with st.container():
+    st.markdown('<div class="custom-box">', unsafe_allow_html=True)
+    with st.form("main_order_form"):
+        u_name = st.text_input("الاسم الكامل")
+        u_phone = st.text_input("رقم الهاتف (واتساب)")
+        u_service = st.selectbox("نوع الخدمة", ["مونتاج فيديو", "تصميم شعار", "طباعة وبحوث", "خدمة أخرى"])
+        u_details = st.text_area("تفاصيل إضافية")
+        submit_btn = st.form_submit_button("إرسال الطلب ✅")
 
-        # 3. زر الإرسال (احترافي)
-        submit_btn = st.form_submit_button("إرسال الطلب واعتماد البيانات ✅")
-
-                if u_name and u_phone:
-            # 1. توليد رقم الطلب والتاريخ
+    if submit_btn:
+        if u_name and u_phone:
             order_id = f"AY-{random.randint(1000, 9999)}"
             order_date = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
-
-            # 2. إنشاء الجدول (التصحيح هنا)
-                        # 2. إنشاء الجدول (التصحيح النهائي للأقواس)
-            new_order = {
-                "التاريخ": [order_date],
-                "الرقم": [order_id],
-                "العميل": [u_name],
-                "الهاتف": [u_phone],
-                "الخدمة": [u_service]
-            }
-
-            df = pd.DataFrame(new_order)
+            
+            # الحفظ في ملف CSV
+            new_data = {"التاريخ": [order_date], "الرقم": [order_id], "الاسم": [u_name], "الهاتف": [u_phone], "الخدمة": [u_service]}
+            df = pd.DataFrame(new_data)
             file_db = "orders_database.csv"
             
-            # 3. حفظ البيانات بشكل صحيح
-            if not os.path.exists(file_db):
+            if not os.path.isfile(file_db):
                 df.to_csv(file_db, index=False, encoding='utf-8-sig')
             else:
                 df.to_csv(file_db, mode='a', header=False, index=False, encoding='utf-8-sig')
 
-            # 4. رسالة النجاح في الموقع
-            st.success(f"✅ تم تسجيل طلبك بنجاح! رقم الطلب هو: {order_id}")
-
-            # 4. رسالة النجاح في الموقع
-            st.success(f"✅ تم تسجيل طلبك بنجاح! رقم الطلب هو: {order_id}")
-
-            # --- د. إرسال معلومات الزبون للواتساب بدقة عالية ---
-            MY_WHATSAPP = "9647739778877" # اكتب رقمك هنا
+            st.success(f"تم تسجيل طلبك! رقم الطلب: {order_id}")
             
-            # تنسيق الرسالة لتصلك بشكل "فاتورة" مرتبة
-            wa_message = (
-                f"🚨 *طلب جديد من الموقع* 🚨%0a%0a"
-                f"🆔 *رقم الطلب:* {order_id}%0a"
-                f"👤 *اسم العميل:* {u_name}%0a"
-                f"📞 *رقم الهاتف:* {u_phone}%0a"
-                f"💼 *الخدمة:* {u_service}%0a"
-                f"⚡ *الأهمية:* {u_urgency}%0a"
-                f"📝 *التفاصيل:* {u_details}%0a%0a"
-                f"📅 *تاريخ الطلب:* {order_date}"
-            )
+            # رابط الواتساب (ضع رقمك هنا)
+            MY_NUMBER = "9647739778877" 
+            wa_text = f"أهلاً أيوب، سجلت طلب جديد برقم {order_id}. الاسم: {u_name}"
+            wa_url = f"https://wa.me/{MY_NUMBER}?text={wa_text.replace(' ', '%20')}"
             
-            wa_url = f"https://wa.me/{MY_WHATSAPP}?text={wa_message}"
-
-            # زر الواتساب الاحترافي (تباين أخضر وذهبي)
-            st.markdown(f"""
-                <div style="margin-top: 15px;">
-                    <a href="{wa_url}" target="_blank" style="text-decoration: none;">
-                        <div style="background: linear-gradient(90deg, #25d366, #128c7e); color: white; padding: 18px; border-radius: 12px; text-align: center; font-weight: bold; font-size: 18px; box-shadow: 0px 4px 15px rgba(0,0,0,0.3);">
-                            تأكيد الطلب عبر الواتساب (دقة عالية) 📱
-                        </div>
-                    </a>
-                </div>
-            """, unsafe_allow_html=True)
+            st.markdown(f'<a href="{wa_url}" target="_blank"><div style="background-color:#25d366;color:white;padding:15px;border-radius:10px;text-align:center;font-weight:bold;">تأكيد عبر واتساب 🟢</div></a>', unsafe_allow_html=True)
         else:
-            st.error("❌ عذراً، يجب إدخال الاسم ورقم هاتف صحيح لإتمام العملية.")
-
+            st.error("يرجى ملء الاسم والهاتف.")
     st.markdown('</div>', unsafe_allow_html=True)
+
+# 6. لوحة التحكم السرية (خاصة بأيوب)
 st.write("---")
-st.markdown('<h2 class="gold-title">🤖 مساعد أيوب الذكي (نسخة مطورة)</h2>', unsafe_allow_html=True)
-
-with st.container():
-    st.markdown('<div class="custom-box">', unsafe_allow_html=True)
-    
-    # حقل الإدخال
-    user_input = st.text_input("سولف وياي.. أي شي ببالك عن المكتبة أو الخدمات؟", placeholder="مثلاً: شلون أسوي مونتاج؟")
-
-    if user_input:
-        # تحويل النص لسهولة الفحص
-        text = user_input.lower()
-        
-        # مصفوفة الذكاء والردود
-        if any(word in text for word in ["هلا", "هلو", "السلام", "مرحبا"]):
-            st.info("يا هلا بيك! نورت مكتبة أيوب هاني. تفضل عيوني، بشنو أقدر أخدمك اليوم؟")
-            
-        elif any(word in text for word in ["شلونك", "اخبارك"]):
-            st.info("بخير إذا أنت بخير! أنا هنا مثل المساعد الآلي لأيوب، جاهز أسمع طلباتك وأرتبها إلك.")
-
-        elif any(word in text for word in ["مونتاج", "فيديو", "تصميم", "تيك توك", "ريلز"]):
-            st.info("أنت بالمكان الصح! أيوب مختص بمونتاج الـ CapCut Pro. نعدل الألوان، نضيف انتقالات خرافية، ونخلي الفيديو مالتك يصير ترند. بس املأ الاستمارة جوة حتى نبدأ.")
-
-        elif any(word in text for word in ["سعر", "بكم", "تكلفة", "فلوس", "رخيص"]):
-            st.info("أسعارنا مناسبة جداً وتنافسية. المونتاج يبدأ من سعر بسيط ويعتمد على مدة الفيديو. اترك طلبك وأيوب راح يحدد لك السعر النهائي اللي يرضيك.")
-
-        elif any(word in text for word in ["وين", "عنوان", "مكان", "بغداد", "يوسفية"]):
-            st.info("مكتبتنا موجودة في بغداد - منطقة اليوسفية (القصر الأوسط). نتشرف بزيارتك بأي وقت، بس الأفضل تسجل طلبك هنا أونلاين أولاً.")
-
-        elif any(word in text for word in ["وكت", "وقت", "شوكت", "ساعة", "مفتوحين"]):
-            st.info("نستلم الطلبات أونلاين 24 ساعة! أما المحل فيفتح من الصبح للمساء. سجل طلبك هسة وحجز دورك.")
-
-        elif any(word in text for word in ["شكرا", "رحم الله والديك", "عاشت ايدك"]):
-            st.info("ولو، تدلل! هذا واجبي. لا تنسى تسجل طلبك بالاستمارة حتى لا يضيع وقتك.")
-
-        elif any(word in text for word in ["منو", "أيوب", "انت"]):
-            st.info("أنا المساعد الذكي الخاص بـ 'أيوب هاني'. أيوب هو مبرمج وصانع محتوى وخبير مونتاج، وهذا الموقع هو بوابتك لكل خدماته.")
-
-        else:
-            # الرد الذكي في حال لم يفهم الكلمة
-            st.info("خوش سؤال! بس ياريت توضح أكثر حتى أقدر أساعدك بدقة. تكدر تسألني عن (المونتاج، التصميم، الأسعار، أو الموقع).")
-
-    st.markdown('</div>', unsafe_allow_html=True)
-st.write("---")
-# --- كود لوحة التحكم برمز الدخول 57575656 ---
-st.write("---")
-with st.expander("🔐 لوحة إدارة الطلبات (خاص بالمدير)"):
-    # حقل إدخل الرمز الذي طلبته
-    admin_pass = st.text_input("أدخل رمز الدخول", type="password")
-    
+with st.expander("🔐 إدارة الطلبات (خاص بأيوب)"):
+    admin_pass = st.text_input("كلمة السر الخاصة بك", type="password")
     if admin_pass == "57575656":
         if os.path.exists("orders_database.csv"):
             try:
-                # قراءة البيانات وعرضها
                 df_view = pd.read_csv("orders_database.csv")
-                
                 if not df_view.empty:
-                    st.success("تم الدخول بنجاح! إليك سجل الطلبات:")
+                    st.write("سجل الزبائن الحالي:")
                     st.dataframe(df_view)
-                    
-                    # زر تحميل الملف
                     with open("orders_database.csv", "rb") as f:
-                        st.download_button(
-                            label="📥 تحميل سجل الطلبات (Excel)",
-                            data=f,
-                            file_name="ayub_orders_list.csv",
-                            mime="text/csv"
-                        )
+                        st.download_button("📥 تحميل الإكسل", f, file_name="ayub_orders.csv")
                 else:
-                    st.warning("السجل موجود حالياً لكن لا توجد طلبات مسجلة فيه بعد.")
+                    st.warning("الملف موجود لكنه فارغ.")
             except:
-                st.error("السجل قيد التحديث، يرجى إرسال طلب تجريبي أولاً من الاستمارة.")
+                st.error("حدث خطأ أثناء قراءة البيانات.")
         else:
-            st.info("لم يتم إنشاء سجل طلبات بعد. سيظهر هنا بمجرد استلام أول طلب من الموقع.")
-    elif admin_pass:
-        st.error("الرمز الذي أدخلته غير صحيح!")
-# --- قسم فحص حالة الطلب للزبائن ---
-st.write("---")
-st.markdown('<h3 class="gold-title">🔍 الاستعلام عن طلبك</h3>', unsafe_allow_html=True)
-
-with st.container():
-    st.markdown('<div class="custom-box">', unsafe_allow_html=True)
-    
-    # حقل إدخال رقم الطلب
-    search_order = st.text_input("أدخل رقم الطلب الخاص بك (مثلاً: AY-1234)")
-    
-    if search_order:
-        if os.path.exists("orders_database.csv"):
-            try:
-                # قراءة السجل
-                df_search = pd.read_csv("orders_database.csv")
-                
-                # البحث عن الرقم داخل عمود "الرقم"
-                # تأكد أن اسم العمود في كود الحفظ هو "الرقم"
-                result = df_search[df_search['الرقم'].astype(str).str.contains(search_order)]
-                
-                if not result.empty:
-                    st.success(f"✅ تم العثور على طلبك يا {result.iloc[0]['الاسم']}")
-                    st.write(f"**نوع الخدمة:** {result.iloc[0]['الخدمة']}")
-                    st.write(f"**تاريخ التسجيل:** {result.iloc[0]['التاريخ']}")
-                    st.info("طلبك قيد المعالجة الآن، سيتم التواصل معك عبر الواتساب قريباً.")
-                else:
-                    st.error("❌ عذراً، هذا الرقم غير مسجل لدينا. تأكد من كتابة الرمز بشكل صحيح.")
-            except:
-                st.warning("نواجه مشكلة في الاتصال بقاعدة البيانات، جرب مرة أخرى لاحقاً.")
-        else:
-            st.info("لا توجد طلبات مسجلة في النظام حالياً.")
-            
-    st.markdown('</div>', unsafe_allow_html=True)
+            st.info("لا يوجد سجل طلبات بعد.")
