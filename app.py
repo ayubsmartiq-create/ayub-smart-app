@@ -174,13 +174,11 @@ with st.container():
                     </button>
                 </a>
             </div>
-        """, unsafe_allow_html=True)
-    else:
+                """, unsafe_allow_html=True)
+    
+        else:
         st.error("يا طيب، لازم تملأ الاسم والرقم حتى نكدر نخدمك!")
 
-        st.error("يا طيب، لازم تملأ الاسم والرقم حتى نكدر نخدمك!")
-
-st.write("---")
 st.markdown('<h2 style="color: #c5a059; text-align: center;">🔍 تتبع حالة طلبك</h2>', unsafe_allow_html=True)
 
 with st.container():
