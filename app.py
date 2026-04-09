@@ -150,3 +150,34 @@ with st.container():
         else:
             # إذا نسى يكتب اسمه أو رقمه
             st.warning("عذراً، يرجى كتابة الاسم ورقم الهاتف لإكمال الطلب.")
+            # 1. رقم الواتساب الخاص بك (تأكد من كتابته بالصيغة الدولية بدون أصفار في البداية)
+            PHONE_NUMBER = "9647739778877" # استبدل هذا برقمك الحقيقي
+
+            # 2. تجهيز نص الرسالة التي ستصلك على الواتساب
+            message = f"هلا أيوب، أنا الزبون: {u_name}%0a" \
+                      f"سجلت طلب جديد برقم: {order_id}%0a" \
+                      f"الخدمة المطلوبة: {u_service}%0a" \
+                      f"التفاصيل: {u_details}"
+
+            # 3. إنشاء رابط الواتساب
+            whatsapp_url = f"https://wa.me/{PHONE_NUMBER}?text={message}"
+
+            # 4. عرض زر "ملكي" للزبون يضغط عليه للذهاب للواتساب
+            st.markdown(f"""
+                <div style="text-align: center; margin-top: 20px;">
+                    <a href="{whatsapp_url}" target="_blank" style="text-decoration: none;">
+                        <button style="
+                            background-color: #25d366; 
+                            color: white; 
+                            padding: 15px 30px; 
+                            border-radius: 10px; 
+                            border: none; 
+                            font-size: 18px; 
+                            font-weight: bold; 
+                            cursor: pointer; 
+                            width: 100%;">
+                            تأكيد الطلب عبر واتساب الآن 🟢
+                        </button>
+                    </a>
+                </div>
+            """, unsafe_allow_html=True)
