@@ -150,34 +150,32 @@ with st.container():
         else:
             # إذا نسى يكتب اسمه أو رقمه
             st.warning("عذراً، يرجى كتابة الاسم ورقم الهاتف لإكمال الطلب.")
-            # 1. رقم الواتساب الخاص بك (تأكد من كتابته بالصيغة الدولية بدون أصفار في البداية)
-            PHONE_NUMBER = "9647739778877" # استبدل هذا برقمك الحقيقي
+            # --- تكملة كود الواتساب في نهاية عملية الإرسال ---
+            
+            # 1. رقمك الحقيقي (اكتبه بدون أصفار بالبداية)
+            MY_NUMBER = "9647739778877" 
 
-            # 2. تجهيز نص الرسالة التي ستصلك على الواتساب
-            message = f"هلا أيوب، أنا الزبون: {u_name}%0a" \
-                      f"سجلت طلب جديد برقم: {order_id}%0a" \
-                      f"الخدمة المطلوبة: {u_service}%0a" \
-                      f"التفاصيل: {u_details}"
+            # 2. تجهيز الرسالة
+            wa_text = f"هلا أيوب، سجلت طلب جديد ✅%0a" \
+                      f"الاسم: {u_name}%0a" \
+                      f"رقم الطلب: {order_id}%0a" \
+                      f"الخدمة: {u_service}"
 
-            # 3. إنشاء رابط الواتساب
-            whatsapp_url = f"https://wa.me/{PHONE_NUMBER}?text={message}"
-
-            # 4. عرض زر "ملكي" للزبون يضغط عليه للذهاب للواتساب
+            # 3. الرابط والزر
+            wa_link = f"https://wa.me/{MY_NUMBER}?text={wa_text}"
+            
             st.markdown(f"""
-                <div style="text-align: center; margin-top: 20px;">
-                    <a href="{whatsapp_url}" target="_blank" style="text-decoration: none;">
-                        <button style="
-                            background-color: #25d366; 
-                            color: white; 
-                            padding: 15px 30px; 
-                            border-radius: 10px; 
-                            border: none; 
-                            font-size: 18px; 
-                            font-weight: bold; 
-                            cursor: pointer; 
-                            width: 100%;">
-                            تأكيد الطلب عبر واتساب الآن 🟢
-                        </button>
-                    </a>
-                </div>
+                <a href="{wa_link}" target="_blank" style="text-decoration: none;">
+                    <div style="
+                        background-color: #25d366; 
+                        color: white; 
+                        padding: 15px; 
+                        border-radius: 12px; 
+                        text-align: center; 
+                        font-weight: bold;
+                        margin-top: 10px;
+                        cursor: pointer;">
+                        اضغط هنا لتأكيد طلبك عبر واتساب 🟢
+                    </div>
+                </a>
             """, unsafe_allow_html=True)
