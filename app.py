@@ -207,3 +207,37 @@ with st.container():
 
     st.markdown('</div>', unsafe_allow_html=True)
 st.write("---")
+# --- لوحة التحكم السرية الخاصة بأيوب هاني ---
+st.write("---")
+with st.expander("🔐 لوحة إدارة الطلبات (خاص بالمدير)"):
+    # حقل إدخال كلمة المرور
+    admin_pass = st.text_input("أدخل رمز الدخول لرؤية سجل الزبائن", type="password")
+    
+    if admin_pass == "57575656":
+        # التأكد من وجود ملف قاعدة البيانات
+        if os.path.exists("orders_database.csv"):
+            try:
+                # قراءة البيانات باستخدام pandas
+                df_view = pd.read_csv("orders_database.csv")
+                
+                # فحص إذا كان الملف يحتوي على بيانات
+                if not df_view.empty:
+                    st.success("أهلاً بك يا أيوب. إليك قائمة الطلبات الحالية:")
+                    st.dataframe(df_view) # عرض الجدول بشكل تفاعلي
+                    
+                    # زر لتحميل الملف بجهازك بصيغة CSV (Excel)
+                    with open("orders_database.csv", "rb") as f:
+                        st.download_button(
+                            label="📥 تحميل سجل الطلبات كملف Excel",
+                            data=f,
+                            file_name="ayub_library_orders.csv",
+                            mime="text/csv"
+                        )
+                else:
+                    st.warning("السجل موجود ولكنه فارغ حالياً (بانتظار أول زبون).")
+            except Exception as e:
+                st.error("حدث خطأ أثناء محاولة قراءة السجل. تأكد من إرسال طلب تجريبي أولاً.")
+        else:
+            st.info("لا يوجد سجل طلبات حالياً. سيظهر السجل هنا فور إرسال أول طلب من الموقع.")
+    elif admin_pass:
+        st.error("رمز الدخول غير صحيح!")
