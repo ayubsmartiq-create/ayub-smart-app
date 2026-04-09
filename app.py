@@ -99,38 +99,35 @@ with st.container():
         # 3. زر الإرسال (احترافي)
         submit_btn = st.form_submit_button("إرسال الطلب واعتماد البيانات ✅")
 
-    if submit_btn:
-        if u_name and u_phone and len(u_phone) >= 10:
-            # --- أ. توليد رقم الطلب الفريد ---
+                if u_name and u_phone:
+            # 1. توليد رقم الطلب والتاريخ
             order_id = f"AY-{random.randint(1000, 9999)}"
             order_date = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
 
-            # --- ب. حفظ المعلومات في سجل الإكسل (CSV) بدقة ---
+            # 2. إنشاء الجدول (التصحيح هنا)
+                        # 2. إنشاء الجدول (التصحيح النهائي للأقواس)
             new_order = {
                 "التاريخ": [order_date],
-                "رقم الطلب": [order_id],
+                "الرقم": [order_id],
                 "العميل": [u_name],
                 "الهاتف": [u_phone],
-                "الخدمة": [u_service],
-                "الأهمية": [u_urgency],
-                "التفاصيل": [u_details]
+                "الخدمة": [u_service]
             }
+
             df = pd.DataFrame(new_order)
             file_db = "orders_database.csv"
             
-            # الحفظ بدون تكرار العناوين
-            if not os.path.isfile(file_db):
+            # 3. حفظ البيانات بشكل صحيح
+            if not os.path.exists(file_db):
                 df.to_csv(file_db, index=False, encoding='utf-8-sig')
             else:
                 df.to_csv(file_db, mode='a', header=False, index=False, encoding='utf-8-sig')
 
-            # --- ج. رسالة النجاح (تباين ألوان عالي) ---
-            st.markdown(f"""
-                <div style="background-color: #1e293b; border: 2px solid #c5a059; padding: 20px; border-radius: 15px; text-align: center;">
-                    <h3 style="color: #c5a059;">تم تسجيل طلبك بنجاح! 🎉</h3>
-                    <p style="color: white; font-size: 20px;">رقم تتبع الطلب الخاص بك: <b style="color: #facc15;">{order_id}</b></p>
-                </div>
-            """, unsafe_allow_html=True)
+            # 4. رسالة النجاح في الموقع
+            st.success(f"✅ تم تسجيل طلبك بنجاح! رقم الطلب هو: {order_id}")
+
+            # 4. رسالة النجاح في الموقع
+            st.success(f"✅ تم تسجيل طلبك بنجاح! رقم الطلب هو: {order_id}")
 
             # --- د. إرسال معلومات الزبون للواتساب بدقة عالية ---
             MY_WHATSAPP = "9647739778877" # اكتب رقمك هنا
