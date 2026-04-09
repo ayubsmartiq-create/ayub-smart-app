@@ -4,120 +4,155 @@ import os
 import datetime
 import random
 
-# 1. إعدادات الصفحة والتصميم (CSS)
-st.set_page_config(page_title="مكتبة أيوب هاني الذكية", layout="centered")
+# --- 1. التصميم الملكي الاحترافي (Global Gold Edition) ---
+st.set_page_config(page_title="مكتبة أيوب الذكية", layout="wide")
 
 st.markdown("""
     <style>
-    .stApp { background-color: #0f172a; }
-    .gold-title { 
-        color: #c5a059 !important; 
-        text-align: right; 
-        font-weight: bold;
-        margin-bottom: 20px;
+    /* الخلفية والنصوص العامة */
+    .stApp { background-color: #000000; direction: rtl; }
+    
+    /* توحيد لون كل النصوص إلى الأصفر الذهبي الطوخ */
+    h1, h2, h3, h4, p, label, span, div, .stMarkdown {
+        color: #FFD700 !important;
+        text-align: right !important;
+        font-family: 'Cairo', sans-serif;
     }
-    .custom-box {
-        background-color: #1e293b; 
-        padding: 20px; 
-        border-radius: 15px; 
-        border-right: 5px solid #c5a059;
-        margin-bottom: 25px;
+
+    /* القوائم المنسدلة والحقول - النص والحدود ذهبية */
+    .stTextInput input, .stSelectbox div, .stTextArea textarea, .stMultiSelect div {
+        background-color: #111111 !important;
+        color: #FFD700 !important;
+        border: 2px solid #FFD700 !important;
+        border-radius: 12px !important;
+    }
+    
+    /* القائمة المنسدلة عند الفتح */
+    div[data-baseweb="select"] ul {
+        background-color: #111111 !important;
+        color: #FFD700 !important;
+    }
+
+    /* صناديق الخدمات العالمية */
+    .service-card {
+        background: linear-gradient(145deg, #0a0a0a, #1a1a1a);
+        padding: 25px;
+        border-radius: 20px;
+        border: 1px solid #FFD700;
         text-align: right;
-        color: white;
+        transition: 0.4s;
+        height: 250px;
+        box-shadow: 0px 10px 30px rgba(255, 215, 0, 0.05);
     }
-    .box-text { color: #ffffff !important; }
+    .service-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0px 15px 40px rgba(255, 215, 0, 0.2);
+        border-width: 2px;
+    }
+
+    /* زر الإرسال */
+    .stButton>button {
+        background: linear-gradient(90deg, #FFD700, #b8860b) !important;
+        color: #000000 !important;
+        font-weight: bold !important;
+        font-size: 20px !important;
+        padding: 15px !important;
+        border-radius: 15px !important;
+        border: none !important;
+        box-shadow: 0px 5px 15px rgba(255, 215, 0, 0.3);
+    }
     </style>
     """, unsafe_allow_html=True)
 
-# 2. العناوين والترحيب
-st.markdown('<h1 class="gold-title">🦅 مكتبة أيوب هاني الذكية</h1>', unsafe_allow_html=True)
+# --- 2. قسم الهوية ---
+st.markdown('<h1 style="text-align:center; font-size: 55px; letter-spacing: 2px;">مكتبة أيوب الذكية</h1>', unsafe_allow_html=True)
+st.markdown('<p style="text-align:center; font-size: 22px; opacity: 0.8;">المنصة الأولى للخدمات الرقمية والحلول الذكية</p>', unsafe_allow_html=True)
 
-st.markdown("""
-    <div class="custom-box">
-        <p class="box-text">أهلاً بك في منصتنا الإلكترونية. نحن هنا لنقدم لك أفضل خدمات المونتاج، التصميم، والخدمات المكتبية بأعلى جودة.</p>
-    </div>
-    """, unsafe_allow_html=True)
+# --- 3. صناديق الخدمات الاحترافية ---
+st.write("")
+cols = st.columns(4)
+services = [
+    {"title": "الخدمات المكتبية", "desc": "طباعة صور، استنساخ، عمل CV احترافي، وتنسيق البحوث."},
+    {"title": "التحويل المالي", "desc": "شحن وتفريغ زين كاش، ماستر كارد، وتعبئة كافة الأرصدة."},
+    {"title": "الذكاء الاصطناعي", "desc": "إنشاء مواقع، تصميم شعارات، واستشارات في تطوير الأعمال الذكية."},
+    {"title": "المونتاج والإبداع", "desc": "صناعة محتوى تيك توك، يوتيوب، وإدارة الحسابات الاجتماعية."}
+]
 
-# 3. قسم الخدمات
-st.markdown('<h2 class="gold-title">🛠️ خدماتنا الاحترافية</h2>', unsafe_allow_html=True)
-col1, col2 = st.columns(2)
+for i, s in enumerate(services):
+    with cols[i]:
+        st.markdown(f"""
+            <div class="service-card">
+                <h3>{s['title']}</h3>
+                <p>{s['desc']}</p>
+            </div>
+        """, unsafe_allow_html=True)
 
-with col1:
-    st.markdown('<div class="custom-box"><h3 style="color:#c5a059;">🎬 المونتاج</h3><p>تعديل فيديوهات TikTok و Reels باحترافية عالية.</p></div>', unsafe_allow_html=True)
-with col2:
-    st.markdown('<div class="custom-box"><h3 style="color:#c5a059;">📄 البحوث</h3><p>كتابة وتنسيق بحوث التخرج والتقارير المدرسية.</p></div>', unsafe_allow_html=True)
-
-# 4. المساعد الذكي المطوّر
-st.markdown('<h2 class="gold-title">🤖 مساعد أيوب الذكي</h2>', unsafe_allow_html=True)
-with st.container():
-    st.markdown('<div class="custom-box">', unsafe_allow_html=True)
-    user_input = st.text_input("سولف وياي.. أي شي ببالك عن المكتبة؟")
-    if user_input:
-        text = user_input.lower()
-        if any(word in text for word in ["هلا", "هلو", "مرحبا"]):
-            st.info("يا هلا بيك بنورك! بشنو أقدر أخدمك اليوم؟")
-        elif "سعر" in text or "بكم" in text:
-            st.info("أسعارنا تنافسية جداً، اترك طلبك بالاستمارة تحت وأبشر بالخير.")
-        elif "مونتاج" in text or "فيديو" in text:
-            st.info("أيوب خبير بمونتاج CapCut، نطلع لك فيديو عالمي!")
-        else:
-            st.info("خوش سؤال! تكدر تسألني عن المونتاج، الأسعار، أو موقعنا باليوسفية.")
-    st.markdown('</div>', unsafe_allow_html=True)
-
-# 5. استمارة الطلب وحفظ البيانات
-st.markdown('<h2 class="gold-title">📝 سجل طلبك الآن</h2>', unsafe_allow_html=True)
-with st.container():
-    st.markdown('<div class="custom-box">', unsafe_allow_html=True)
-    with st.form("main_order_form"):
-        u_name = st.text_input("الاسم الكامل")
-        u_phone = st.text_input("رقم الهاتف (واتساب)")
-        u_service = st.selectbox("نوع الخدمة", ["مونتاج فيديو", "تصميم شعار", "طباعة وبحوث", "خدمة أخرى"])
-        u_details = st.text_area("تفاصيل إضافية")
-        submit_btn = st.form_submit_button("إرسال الطلب ✅")
-
-    if submit_btn:
-        if u_name and u_phone:
-            order_id = f"AY-{random.randint(1000, 9999)}"
-            order_date = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
-            
-            # الحفظ في ملف CSV
-            new_data = {"التاريخ": [order_date], "الرقم": [order_id], "الاسم": [u_name], "الهاتف": [u_phone], "الخدمة": [u_service]}
-            df = pd.DataFrame(new_data)
-            file_db = "orders_database.csv"
-            
-            if not os.path.isfile(file_db):
-                df.to_csv(file_db, index=False, encoding='utf-8-sig')
-            else:
-                df.to_csv(file_db, mode='a', header=False, index=False, encoding='utf-8-sig')
-
-            st.success(f"تم تسجيل طلبك! رقم الطلب: {order_id}")
-            
-            # رابط الواتساب (ضع رقمك هنا)
-            MY_NUMBER = "9647739778877" 
-            wa_text = f"أهلاً أيوب، سجلت طلب جديد برقم {order_id}. الاسم: {u_name}"
-            wa_url = f"https://wa.me/{MY_NUMBER}?text={wa_text.replace(' ', '%20')}"
-            
-            st.markdown(f'<a href="{wa_url}" target="_blank"><div style="background-color:#25d366;color:white;padding:15px;border-radius:10px;text-align:center;font-weight:bold;">تأكيد عبر واتساب 🟢</div></a>', unsafe_allow_html=True)
-        else:
-            st.error("يرجى ملء الاسم والهاتف.")
-    st.markdown('</div>', unsafe_allow_html=True)
-
-# 6. لوحة التحكم السرية (خاصة بأيوب)
+# --- 4. الاستمارة الذكية ---
 st.write("---")
-with st.expander("🔐 إدارة الطلبات (خاص بأيوب)"):
-    admin_pass = st.text_input("كلمة السر الخاصة بك", type="password")
-    if admin_pass == "57575656":
-        if os.path.exists("orders_database.csv"):
-            try:
-                df_view = pd.read_csv("orders_database.csv")
-                if not df_view.empty:
-                    st.write("سجل الزبائن الحالي:")
-                    st.dataframe(df_view)
-                    with open("orders_database.csv", "rb") as f:
-                        st.download_button("📥 تحميل الإكسل", f, file_name="ayub_orders.csv")
-                else:
-                    st.warning("الملف موجود لكنه فارغ.")
-            except:
-                st.error("حدث خطأ أثناء قراءة البيانات.")
+st.markdown('<h2 style="text-align:center;">إبدأ طلبك الآن</h2>', unsafe_allow_html=True)
+
+with st.container():
+    with st.form("smart_order_form"):
+        u_name = st.text_input("الأسم الكريم الكامل")
+        u_phone = st.text_input("رقم الواتساب الخاص بك")
+        u_service = st.selectbox("اختر نوع الخدمة", [
+            "عمل CV احترافي", "تحويل مالي (زين كاش)", "تصميم شعار (Logo)", 
+            "إنشاء موقع إلكتروني", "استشارة ذكاء اصطناعي", "طباعة واستنساخ", 
+            "مونتاج فيديو", "شراء رصيد", "أخرى"
+        ])
+        
+        u_notes = ""
+        if u_service == "أخرى":
+            u_notes = st.text_area("يرجى ذكر تفاصيل الخدمة التي تحتاجها")
         else:
-            st.info("لا يوجد سجل طلبات بعد.")
+            u_notes = st.text_area("تفاصيل إضافية أو ملاحظات خاصة")
+            
+        submit = st.form_submit_button("إرسال الطلب إلى المكتبة")
+
+if submit:
+    if u_name and u_phone:
+        order_id = f"AY-{random.randint(1000, 9999)}"
+        order_date = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
+        
+        # حفظ البيانات (تلقائياً)
+        df = pd.DataFrame({"التاريخ": [order_date], "الرقم": [order_id], "الاسم": [u_name], "الهاتف": [u_phone], "الخدمة": [u_service], "الحالة": ["قيد المراجعة"]})
+        file_db = "orders_database.csv"
+        if not os.path.exists(file_db):
+            df.to_csv(file_db, index=False, encoding='utf-8-sig')
+        else:
+            df.to_csv(file_db, mode='a', header=False, index=False, encoding='utf-8-sig')
+
+        st.success(f"تم تسجيل طلبك برقم: {order_id}")
+        
+        # تحويل البيانات للواتساب
+        MY_NUMBER = "9647739778877"
+        wa_msg = f"طلب جديد من مكتبة أيوب الذكية%0A---%0Aالرقم: {order_id}%0Aالاسم: {u_name}%0Aالخدمة: {u_service}%0Aالتاريخ: {order_date}"
+        wa_url = f"https://wa.me/{MY_NUMBER}?text={wa_msg}"
+        
+        st.markdown(f'<a href="{wa_url}" target="_blank"><div style="background-color:#25d366;color:white;padding:20px;border-radius:15px;text-align:center;font-weight:bold;font-size:18px;">اضغط هنا لتأكيد الطلب عبر الواتساب (مهم جداً) 🟢</div></a>', unsafe_allow_html=True)
+        
+        # ملاحظة الإيميل: Streamlit لا يرسل إيميلات مباشرة بدون سيرفر خارجي،
+        # لكن الكود الآن مسجل للطلب في قاعدة البيانات.
+    else:
+        st.error("يرجى ملء الاسم ورقم الهاتف")
+
+# --- 5. قسم حالة الطلب للزبون (تتبع احترافي) ---
+st.write("---")
+st.markdown('<h2 style="text-align:center;">تتبع حالة طلبك</h2>', unsafe_allow_html=True)
+with st.container():
+    search_id = st.text_input("أدخل رقم طلبك (AY-XXXX) لمعرفة الحالة")
+    if search_id:
+        if os.path.exists("orders_database.csv"):
+            data = pd.read_csv("orders_database.csv")
+            res = data[data['الرقم'].astype(str) == search_id]
+            if not res.empty:
+                status = res.iloc[-1]['الحالة']
+                st.markdown(f"""
+                    <div style="background-color:#111; padding:30px; border-radius:20px; border:1px solid #FFD700; text-align:center;">
+                        <h3 style="margin:0;">حالة الطلب الحالية:</h3>
+                        <h1 style="color:#FFD700; font-size:50px;">{status}</h1>
+                        <p>سيتم التواصل معك فور تحديث الحالة</p>
+                    </div>
+                """, unsafe_allow_html=True)
+            else:
+                st.error("الرقم غير موجود، تأكد من كتابته بشكل صحيح.")
