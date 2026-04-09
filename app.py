@@ -92,3 +92,21 @@ st.markdown("""
         </p>
     </div>
     """, unsafe_allow_html=True)
+# عنوان الاستمارة بلون ذهبي
+st.markdown('<h2 class="gold-title">📝 اطلب خدمتك الآن</h2>', unsafe_allow_html=True)
+
+# المربع الكبير الذي يضم الاستمارة
+with st.container():
+    st.markdown('<div class="custom-box">', unsafe_allow_html=True)
+    
+    # بداية النموذج
+    with st.form("order_form"):
+        u_name = st.text_input("الاسم الثلاثي")
+        u_phone = st.text_input("رقم الهاتف (واتساب)")
+        u_service = st.selectbox("اختار الخدمة", ["مونتاج فيديو", "تصميم شعار", "طباعة وبحوث", "خدمة أخرى"])
+        u_details = st.text_area("تفاصيل إضافية (اختياري)")
+        
+        # زر الإرسال
+        submit_btn = st.form_submit_button("إرسال الطلب وحفظه")
+    
+    st.markdown('</div>', unsafe_allow_html=True)
