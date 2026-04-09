@@ -210,7 +210,7 @@ st.write("---")
 # لوحة تحكم سرية لأيوب فقط
 with st.expander("🔐 لوحة إدارة الطلبات (لأصحاب الموقع فقط)"):
     admin_pass = st.text_input("كلمة السر", type="password")
-    if admin_pass == "ayub2026": # تكدر تغير الباسورد براحتك
+    if admin_pass == "57575656": # تكدر تغير الباسورد براحتك
         if os.path.exists("orders_database.csv"):
             df_view = pd.read_csv("orders_database.csv")
             st.write("هذه هي الطلبات المسجلة حالياً:")
