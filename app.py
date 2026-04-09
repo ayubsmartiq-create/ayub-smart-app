@@ -3,7 +3,6 @@ import pandas as pd
 import os
 import datetime
 import random
-
 # إعداد الصفحة
 st.set_page_config(page_title="مكتبة أيوب الذكية", layout="centered")
 
@@ -45,4 +44,13 @@ st.markdown("""
         border: 1px solid #c5a059 !important;
     }
     </style>
+    """, unsafe_allow_html=True)
+# نص فوق المربع (ذهبي)
+st.markdown('<h1 class="gold-title">🦅 مكتبة أيوب هاني الذكية</h1>', unsafe_allow_html=True)
+
+# المربع وبداخله نص (أبيض)
+st.markdown("""
+    <div class="custom-box">
+        <p class="box-text">أهلاً بك يا بطل! هذا المربع مصمم لعرض المعلومات بوضوح وبألوان متناسقة مع هويتك البصرية.</p>
+    </div>
     """, unsafe_allow_html=True)
