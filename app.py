@@ -214,11 +214,11 @@ with st.expander("🔐 لوحة إدارة الطلبات (لأصحاب المو
                 if os.path.exists("orders_database.csv"):
             try:
                 # قراءة الملف مع التأكد من أنه ليس فارغاً
-                df_view = pd.read_csv("orders_database.csv")
-                if not df_view.empty:
+                    df_view = pd.read_csv("orders_database.csv")
+                    if not df_view.empty:
                     st.write("هذه هي الطلبات المسجلة حالياً:")
                     st.dataframe(df_view)
-                else:
+                    else:
                     st.warning("الملف موجود ولكنه فارغ حالياً.")
             except:
                 st.error("السجل قيد التحديث، جرب إرسال طلب جديد أولاً.")
