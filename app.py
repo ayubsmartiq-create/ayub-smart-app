@@ -129,13 +129,13 @@ with st.container():
         if submit_btn:
             if u_name and u_phone:
                 # توليد رقم طلب آلي
-            # --- بداية الكود المصلح من سطر 132 ---
+                 # --- بداية الكود المصلح بدقة ---
         import pandas as pd
         import os
 
         order_id = f"AY-{random.randint(1000, 9999)}"
         
-        # تجهيز البيانات للحفظ
+        # تجهيز البيانات للحفظ (لاحظ مكان الفواصل في نهاية السطر)
         new_row = {
             "التاريخ": [datetime.datetime.now().strftime("%Y-%m-%d %H:%M")],
             "رقم الطلب": [order_id],
@@ -153,16 +153,16 @@ with st.container():
         else:
             df_new.to_csv(file_db, mode='a', header=False, index=False, encoding='utf-8-sig')
 
-        # رسالة النجاح المنبثقة (تصميم ملكي)
+        # رسالة النجاح المنبثقة
         st.markdown(f"""
-            <div style="background: #1e293b; padding: 20px; border-radius: 15px; border-right: 5px solid #c5a059; margin-bottom: 20px;">
+            <div style="background: #1e293b; padding: 20px; border-radius: 15px; border-right: 5px solid #c5a059; margin-bottom: 20px; text-align: right;">
                 <h2 style="color: #25d366;">تم تسجيل طلبك! ✅</h2>
-                <p style="color: #ffffff;">رقم التتبع الخاص بك هو: <span style="color: #facc15; font-weight: bold;">{order_id}</span></p>
-                <p style="color: #cbd5e1; font-size: 14px;">يرجى الضغط على الزر أدناه لتأكيد الطلب عبر واتساب</p>
+                <p style="color: #ffffff;">رقم التتبع: <span style="color: #facc15; font-weight: bold;">{order_id}</span></p>
+                <p style="color: #cbd5e1; font-size: 14px;">اضغط على الزر أدناه لتأكيد الطلب</p>
             </div>
         """, unsafe_allow_html=True)
 
-        # زر الواتساب الاحترافي
+        # زر الواتساب (بدون رموز تسبب أخطاء)
         wa_msg = f"هلا أيوب، أنا الزبون {u_name}، سجلت طلب بالموقع برقم: {order_id}"
         wa_url = f"https://wa.me/{MY_WHATSAPP}?text={wa_msg}"
         
@@ -170,9 +170,12 @@ with st.container():
             <div style="text-align: center;">
                 <a href="{wa_url}" target="_blank" style="text-decoration: none;">
                     <button style="background-color: #25d366; color: white; padding: 15px 30px; border-radius: 10px; border: none; font-size: 18px; font-weight: bold; cursor: pointer; width: 100%;">
-                        تأكيد الطلب عبر واتساب الآن 🟢
+                        تأكيد الطلب عبر واتساب الآن
                     </button>
                 </a>
+            </div>
+        """, unsafe_allow_html=True)
+
             </div>
         """, unsafe_allow_html=True)
 
