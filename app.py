@@ -129,13 +129,13 @@ with st.container():
         if submit_btn:
             if u_name and u_phone:
                 # توليد رقم طلب آلي
-       # --- السطر 132 الجديد: توليد الرقم وحفظ البيانات ---
+        # --- بداية الكود المصلح من سطر 132 ---
         import pandas as pd
         import os
 
         order_id = f"AY-{random.randint(1000, 9999)}"
         
-        # تجهيز البيانات
+        # تجهيز البيانات للحفظ
         new_row = {
             "التاريخ": [datetime.datetime.now().strftime("%Y-%m-%d %H:%M")],
             "رقم الطلب": [order_id],
@@ -162,12 +162,20 @@ with st.container():
             </div>
         """, unsafe_allow_html=True)
 
-        # زر الواتساب
+        # زر الواتساب الاحترافي
         wa_msg = f"هلا أيوب، أنا الزبون {u_name}، سجلت طلب بالموقع برقم: {order_id}"
         wa_url = f"https://wa.me/{MY_WHATSAPP}?text={wa_msg}"
         
         st.markdown(f"""
             <div style="text-align: center;">
+                <a href="{wa_url}" target="_blank" style="text-decoration: none;">
+                    <button style="background-color: #25d366; color: white; padding: 15px 30px; border-radius: 10px; border: none; font-size: 18px; font-weight: bold; cursor: pointer; width: 100%;">
+                        تأكيد الطلب عبر واتساب الآن 🟢
+                    </button>
+                </a>
+            </div>
+        """, unsafe_allow_html=True)
+
                 <a href="{wa_url}" target="_blank" style="text-decoration: none;">
                     <button style="background-color: #25d366; color: white; padding: 15px 30px; border-radius: 10px; border: none; font-size: 18px; font-weight: bold; cursor: pointer; width: 100%;">
                         تأكيد الطلب عبر واتساب الآن 🟢
