@@ -207,37 +207,35 @@ with st.container():
 
     st.markdown('</div>', unsafe_allow_html=True)
 st.write("---")
-# --- لوحة التحكم السرية الخاصة بأيوب هاني ---
+# --- كود لوحة التحكم برمز الدخول 57575656 ---
 st.write("---")
 with st.expander("🔐 لوحة إدارة الطلبات (خاص بالمدير)"):
-    # حقل إدخال كلمة المرور
-    admin_pass = st.57575656("أدخل رمز الدخول لرؤية سجل الزبائن", type="password")
+    # حقل إدخل الرمز الذي طلبته
+    admin_pass = st.text_input("أدخل رمز الدخول", type="password")
     
     if admin_pass == "57575656":
-        # التأكد من وجود ملف قاعدة البيانات
         if os.path.exists("orders_database.csv"):
             try:
-                # قراءة البيانات باستخدام pandas
+                # قراءة البيانات وعرضها
                 df_view = pd.read_csv("orders_database.csv")
                 
-                # فحص إذا كان الملف يحتوي على بيانات
                 if not df_view.empty:
-                    st.success("أهلاً بك يا أيوب. إليك قائمة الطلبات الحالية:")
-                    st.dataframe(df_view) # عرض الجدول بشكل تفاعلي
+                    st.success("تم الدخول بنجاح! إليك سجل الطلبات:")
+                    st.dataframe(df_view)
                     
-                    # زر لتحميل الملف بجهازك بصيغة CSV (Excel)
+                    # زر تحميل الملف
                     with open("orders_database.csv", "rb") as f:
                         st.download_button(
-                            label="📥 تحميل سجل الطلبات كملف Excel",
+                            label="📥 تحميل سجل الطلبات (Excel)",
                             data=f,
-                            file_name="ayub_library_orders.csv",
+                            file_name="ayub_orders_list.csv",
                             mime="text/csv"
                         )
                 else:
-                    st.warning("السجل موجود ولكنه فارغ حالياً (بانتظار أول زبون).")
-            except Exception as e:
-                st.error("حدث خطأ أثناء محاولة قراءة السجل. تأكد من إرسال طلب تجريبي أولاً.")
+                    st.warning("السجل موجود حالياً لكن لا توجد طلبات مسجلة فيه بعد.")
+            except:
+                st.error("السجل قيد التحديث، يرجى إرسال طلب تجريبي أولاً من الاستمارة.")
         else:
-            st.info("لا يوجد سجل طلبات حالياً. سيظهر السجل هنا فور إرسال أول طلب من الموقع.")
+            st.info("لم يتم إنشاء سجل طلبات بعد. سيظهر هنا بمجرد استلام أول طلب من الموقع.")
     elif admin_pass:
-        st.error("رمز الدخول غير صحيح!")
+        st.error("الرمز الذي أدخلته غير صحيح!")
