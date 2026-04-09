@@ -124,3 +124,44 @@ if submit_btn:
 
 # --- 4. تتبع الطلب والحقوق ---
 st.write("---")
+# --- قسم تتبع حالة الطلب (نسخة احترافية بدون أخطاء) ---
+st.write("---")
+st.markdown('<h2 style="text-align:center;">🔍 تتبع حالة طلبك</h2>', unsafe_allow_html=True)
+
+with st.container():
+    search_id = st.text_input("أدخل رقم طلبك (مثال: AY-1234)", placeholder="اكتب رقم الطلب هنا...")
+    
+    if search_id:
+        file_db = "orders_database.csv"
+        
+        # التأكد من وجود الملف أولاً
+        if os.path.exists(file_db):
+            try:
+                # قراءة الملف مع تخطي الأسطر التالفة
+                track_df = pd.read_csv(file_db, on_bad_lines='skip')
+                
+                # البحث عن الرقم (تحويل الكل لنصوص لضمان المطابقة)
+                result = track_df[track_df['الرقم'].astype(str) == search_id]
+                
+                if not result.empty:
+                    # عرض النتيجة بتصميم فخم
+                    client_name = result.iloc[-1]['الاسم']
+                    order_status = result.iloc[-1]['الحالة']
+                    
+                    st.markdown(f"""
+                        <div style="background-color:#111; padding:25px; border-radius:20px; border:2px solid #FFD700; text-align:center; margin-top:20px;">
+                            <h3 style="margin:0; color:#FFD700;">أهلاً بك يا {client_name}</h3>
+                            <p style="color:#fff !important; font-size:18px;">حالة طلبك الحالية هي:</p>
+                            <div style="background:#FFD700; color:#000; padding:10px; border-radius:10px; display:inline-block; font-weight:bold; font-size:24px;">
+                                {order_status}
+                            </div>
+                            <p style="margin-top:15px; font-size:14px; color:#888 !important;">شكراً لثقتك بمكتبة أيوب الذكية</p>
+                        </div>
+                    """, unsafe_allow_html=True)
+                else:
+                    st.warning("عذراً، هذا الرقم غير مسجل لدينا. تأكد من كتابته بشكل صحيح (مثل AY-1234).")
+            
+            except Exception as e:
+                st.info("نظام التتبع في طور التحديث حالياً، سيظهر طلبك هنا فور معالجته.")
+        else:
+            st.info("لا توجد طلبات مسجلة في النظام حتى الآن.")
