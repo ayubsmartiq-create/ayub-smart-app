@@ -1,4 +1,9 @@
 import streamlit as st
+import pandas as pd
+import os
+import datetime
+import random
+
 
 # --- 1. إعدادات المتصفح الأساسية ---
 st.set_page_config(page_title="مكتبة أيوب هاني الذكية", page_icon="🦅", layout="wide")
@@ -130,9 +135,6 @@ with st.container():
             if u_name and u_phone:
                 # توليد رقم طلب آلي
                  # --- بداية الكود المصلح بدقة ---
-        import pandas as pd
-        import os
-
         order_id = f"AY-{random.randint(1000, 9999)}"
         
         # تجهيز البيانات للحفظ (لاحظ مكان الفواصل في نهاية السطر)
