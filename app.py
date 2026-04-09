@@ -54,3 +54,41 @@ st.markdown("""
         <p class="box-text">أهلاً بك يا بطل! هذا المربع مصمم لعرض المعلومات بوضوح وبألوان متناسقة مع هويتك البصرية.</p>
     </div>
     """, unsafe_allow_html=True)
+# --- عنوان قسم الخدمات ---
+st.markdown('<h2 class="gold-title">🛠️ خدماتنا الاحترافية</h2>', unsafe_allow_html=True)
+
+# القسم الأول: المونتاج
+st.markdown("""
+    <div class="custom-box">
+        <h3 style="color: #c5a059;">🎬 صناعة المحتوى والمونتاج</h3>
+        <p class="box-text">
+            • مونتاج فيديوهات تيك توك وريلز باحترافية عالي.<br>
+            • إضافة انتقالات وترجمة تلقائية (Subtitles).<br>
+            • تعديل الألوان وهندسة الصوت باستخدام CapCut Pro.
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
+
+# القسم الثاني: الخدمات المكتبية والبحوث
+st.markdown("""
+    <div class="custom-box">
+        <h3 style="color: #c5a059;">📄 الخدمات المكتبية والبحوث</h3>
+        <p class="box-text">
+            • طباعة وبحوث التخرج والتقارير المدرسية.<br>
+            • تصميم السيرة الذاتية (CV) بنماذج عصرية.<br>
+            • سحب وتصوير المستندات بدقة عالية.
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
+
+# القسم الثالث: الهوية البصرية
+st.markdown("""
+    <div class="custom-box">
+        <h3 style="color: #c5a059;">🎨 التصميم الجرافيكي</h3>
+        <p class="box-text">
+            • تصميم لوغو (Logo) خاص لمشروعك.<br>
+            • تصميم كروت عمل (Business Cards).<br>
+            • بوستات إعلانية احترافية للفيسبوك والانستغرام.
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
