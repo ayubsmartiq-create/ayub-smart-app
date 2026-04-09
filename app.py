@@ -113,7 +113,7 @@ if submit_btn:
     if u_name and u_phone:
         order_no = f"AY-{random.randint(1000, 9999)}"
         # حفظ في CSV
-        df = pd.DataFrame({"التاريخ": [datetime.datetime.now().strftime("%Y-%m-%d %H:%M")], "الرقم": [order_no], "الاسم": [u_name], "الهاتف": [u_phone], "الخدمة": [u_service], "الحالة": ["قيد المراجعة"]})
+        df = pd.DataFrame({"التاريخ": [datetime.datetime.now().strftime("%Y-%m-%d %H:%M")], "الرقم": [order_no], "الاسم": [u_name], "الهاتف": [u_phone], "الخدمة": [u_srv], "الحالة": ["قيد المراجعة"]})
         df.to_csv("orders_database.csv", mode='a', header=not os.path.exists("orders_database.csv"), index=False, encoding='utf-8-sig')
         
         st.success(f"تم التسجيل! رقم الطلب: {order_no}")
@@ -122,10 +122,5 @@ if submit_btn:
         st.balloons()
     else: st.error("يرجى ملء كافة البيانات.")
 
-# --- 4. الحقوق واللمسة النهائية ---
-st.markdown(f"""
-    <div style="text-align:center; color:#555; font-size:14px; margin-top:50px; border-top: 1px solid #222; padding-top: 20px;">
-        جميع الحقوق محفوظة لمكتبة أيوب الذكية © {datetime.datetime.now().year}<br>
-        بإدارة المبدع أيوب هاني | ضمان وأمان وثقة
-    </div>
-""", unsafe_allow_html=True)
+# --- 4. تتبع الطلب والحقوق ---
+st.write("---")
