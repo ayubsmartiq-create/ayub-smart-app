@@ -188,6 +188,7 @@ with st.container():
             st.warning("يرجى إدخال رقم الطلب أولاً.")
 
     st.markdown('</div>', unsafe_allow_html=True)
+    
 # --- تصليح مساعد أيوب الذكي (ابن المنطقة) ---
 st.write("---")
 st.markdown('<h2 style="color: #c5a059; text-align: center;">🤖 مساعد أيوب (خادم الطيبين)</h2>', unsafe_allow_html=True)
