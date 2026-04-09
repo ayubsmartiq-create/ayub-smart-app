@@ -129,36 +129,55 @@ with st.container():
         if submit_btn:
             if u_name and u_phone:
                 # توليد رقم طلب آلي
-                order_id = f"AY-{random.randint(1000, 9999)}"
-                
-                # --- الرسالة المنبثقة بتصميم وألوان خاصة جداً ---
-                st.markdown(f"""
-                    <div style="background: #0f172a; padding: 25px; border-radius: 15px; border: 2px dashed #facc15; text-align: center; margin-top: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.4);">
-                        <h2 style="color: #25d366 !important; margin-bottom: 10px;">✅ تم استلام بياناتك بنجاح!</h2>
-                        <p style="color: #ffffff !important; font-size: 18px;">أهلاً بك يا <b>{u_name}</b>، شكراً لثقتك بنا.</p>
-                        <div style="background: #1e293b; padding: 10px; border-radius: 10px; display: inline-block; margin: 10px 0;">
-                            <span style="color: #facc15 !important; font-size: 24px; font-weight: bold;">رقم الطلب: {order_id}</span>
-                        </div>
-                        <p style="color: #cbd5e1 !important; font-size: 14px;">يرجى الضغط على الزر أدناه لتأكيد الطلب عبر الواتساب</p>
-                    </div>
-                """, unsafe_allow_html=True)
-                
-                # تحضير رسالة الواتساب
-                wa_msg = f"طلب جديد من الموقع 🦅%0a🔢 رقم الطلب: {order_id}%0a👤 الاسم: {u_name}%0a🎯 الخدمة: {u_service}%0a📄 التفاصيل: {u_details}"
-                wa_url = f"https://wa.me/{MY_WHATSAPP}?text={wa_msg}"
-                
-                # زر الواتساب الأخضر الاحترافي
-                st.markdown(f"""
-                    <div style="text-align: center; margin-top: 15px;">
-                        <a href="{wa_url}" target="_blank" style="text-decoration: none;">
-                            <button style="background-color: #25d366; color: white; padding: 15px 40px; border-radius: 12px; border: none; font-weight: bold; font-size: 20px; cursor: pointer; width: 100%;">
-                                تأكيد الطلب عبر واتساب الآن 🟢
-                            </button>
-                        </a>
-                    </div>
-                """, unsafe_allow_html=True)
-            else:
-                st.error("عذراً، يرجى ملء الحقول الأساسية (الاسم والرقم) لإكمال الطلب.")
+        # --- السطر 132 الجديد: توليد الرقم وحفظ البيانات ---
+        import pandas as pd
+        import os
+
+        order_id = f"AY-{random.randint(1000, 9999)}"
+        
+        # تجهيز البيانات
+        new_row = {
+            "التاريخ": [datetime.datetime.now().strftime("%Y-%m-%d %H:%M")],
+            "رقم الطلب": [order_id],
+            "الاسم": [u_name],
+            "الهاتف": [u_phone],
+            "الخدمة": [u_service],
+            "الحالة": ["قيد الانتظار"]
+        }
+        df_new = pd.DataFrame(new_row)
+
+        # حفظ في ملف السجل
+        file_db = "orders_database.csv"
+        if not os.path.isfile(file_db):
+            df_new.to_csv(file_db, index=False, encoding='utf-8-sig')
+        else:
+            df_new.to_csv(file_db, mode='a', header=False, index=False, encoding='utf-8-sig')
+
+        # رسالة النجاح المنبثقة (تصميم ملكي)
+        st.markdown(f"""
+            <div style="background: #1e293b; padding: 20px; border-radius: 15px; border-right: 5px solid #c5a059; margin-bottom: 20px;">
+                <h2 style="color: #25d366;">تم تسجيل طلبك! ✅</h2>
+                <p style="color: #ffffff;">رقم التتبع الخاص بك هو: <span style="color: #facc15; font-weight: bold;">{order_id}</span></p>
+                <p style="color: #cbd5e1; font-size: 14px;">يرجى الضغط على الزر أدناه لتأكيد الطلب عبر واتساب</p>
+            </div>
+        """, unsafe_allow_html=True)
+
+        # زر الواتساب
+        wa_msg = f"هلا أيوب، أنا الزبون {u_name}، سجلت طلب بالموقع برقم: {order_id}"
+        wa_url = f"https://wa.me/{MY_WHATSAPP}?text={wa_msg}"
+        
+        st.markdown(f"""
+            <div style="text-align: center;">
+                <a href="{wa_url}" target="_blank" style="text-decoration: none;">
+                    <button style="background-color: #25d366; color: white; padding: 15px 30px; border-radius: 10px; border: none; font-size: 18px; font-weight: bold; cursor: pointer; width: 100%;">
+                        تأكيد الطلب عبر واتساب الآن 🟢
+                    </button>
+                </a>
+            </div>
+        """, unsafe_allow_html=True)
+    else:
+        st.error("يا طيب، لازم تملأ الاسم والرقم حتى نكدر نخدمك!")
+
 
 st.write("---")
 st.markdown('<h2 style="color: #c5a059; text-align: center;">🔍 تتبع حالة طلبك</h2>', unsafe_allow_html=True)
