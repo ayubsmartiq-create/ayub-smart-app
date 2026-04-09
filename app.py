@@ -129,8 +129,7 @@ with st.container():
         if submit_btn:
             if u_name and u_phone:
                 # توليد رقم طلب آلي
-        
-        # --- السطر 132 الجديد: توليد الرقم وحفظ البيانات ---
+       # --- السطر 132 الجديد: توليد الرقم وحفظ البيانات ---
         import pandas as pd
         import os
 
